@@ -1,0 +1,16 @@
+@import "assets/scss/variable";
+@import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.ts-bg-primary { background-color: $purple;}
+.ts-bg-primary-dark { background-color: $dark-purple;}
+
+//font sizes
+.f-xx-large   { font-size: xx-large; }
+.f-x-large    { font-size: x-large; }
+
+
+// override
+.shadow-lg { box-shadow: 0 0 28px 0 rgba(86,61,124,.1) !important}
