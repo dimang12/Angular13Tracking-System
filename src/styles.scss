@@ -1,5 +1,7 @@
 @import "assets/scss/variable";
+@import "assets/scss/block-container";
 @import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
+
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -10,6 +12,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 //font sizes
 .f-xx-large   { font-size: xx-large; }
 .f-x-large    { font-size: x-large; }
+.f-large      { font-size: large;}
 
 
 // override

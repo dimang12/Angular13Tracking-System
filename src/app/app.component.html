@@ -5,20 +5,10 @@
 		</div>
 		<div class="flex-grow-1 p-0 h-100 bg-light d-flex flex-column">
 			<header class="bg-white shadow-lg">
-				<nav class="navbar navbar-light p-3">
-					<div class="container-fluid">
-						<a class="navbar-brand">Tracking System</a>
-						<form class="d-flex">
-							<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-							<button class="btn btn-outline-success" type="submit">Search</button>
-						</form>
-					</div>
-				</nav>
+				<app-top-navigation></app-top-navigation>
 			</header>
 			<main class="flex-grow-1">
-				<form>
-
-				</form>
+				<router-outlet></router-outlet>
 			</main>
 			<footer class="p-3 border-top">footer</footer>
 		</div>

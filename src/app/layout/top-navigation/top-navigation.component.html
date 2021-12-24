@@ -1,0 +1,36 @@
+<nav class="navbar navbar-light p-3">
+	<div class="container-fluid">
+		<a class="navbar-brand">Tracking System</a>
+		<div class="d-flex">
+			<form class="d-flex">
+				<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+				<button class="btn btn-outline-success" type="submit">Search</button>
+			</form>
+			<div class="d-flex ms-2">
+				<a mat-button routerLink="/login"  routerLinkActive="active" >
+					<i class="bi-key-fill f-large"></i>
+					<span class="ms-1">Login</span>
+				</a>
+				<button mat-button [matMenuTriggerFor]="menu" aria-label="Account">
+					<i class="bi-person-fill f-large"></i>
+					<span class="ms-1">Account</span>
+				</button>
+				<mat-menu #menu="matMenu">
+					<button mat-menu-item>
+						<mat-icon>dialpad</mat-icon>
+						<span>Logout</span>
+					</button>
+					<button mat-menu-item disabled>
+						<mat-icon>voicemail</mat-icon>
+						<span>Check voice mail</span>
+					</button>
+					<button mat-menu-item>
+						<mat-icon>notifications_off</mat-icon>
+						<span>Disable alerts</span>
+					</button>
+				</mat-menu>
+
+			</div>
+		</div>
+	</div>
+</nav>
