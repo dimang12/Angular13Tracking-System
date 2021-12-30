@@ -1,1 +1,49 @@
-<p>register works!</p>
+<div class="row h-100 ">
+	<div class="col-md-4 offset-md-4 col-sm-10 offset-sm-1 h-100 d-flex">
+		<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="align-self-center block-02 p-3 w-100">
+			<section class="bl-header pb-2 mb-2 d-flex">
+				<h2 class="flex-grow-0">
+					Register new user
+				</h2>
+				<div class="action flex-grow-1">
+
+				</div>
+			</section>
+			<mat-form-field class="w-100" appearance="fill">
+				<mat-label>Email</mat-label>
+				<input type="email" name="loginEmail"  [formControl]="emailFormControl" placeholder="Ex. pat@example.com"
+				       matInput ngModel email required
+				>
+				<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+					Please enter a valid email address
+				</mat-error>
+				<mat-error *ngIf="emailFormControl.hasError('required')">
+					Email is <strong>required</strong>
+				</mat-error>
+			</mat-form-field>
+			<mat-form-field class="w-100">
+				<input type="password" name="loginPassword"
+				       matInput ngModel required
+				/>
+			</mat-form-field>
+			<mat-form-field class="w-100">
+				<input type="password" name="conformPassword"
+				       matInput ngModel required
+				/>
+			</mat-form-field>
+			<mat-form-field class="w-100">
+<!--				<input name="dateOfBirth" [matDatepicker]="datePicker"  placeholder="Your birthdate"-->
+<!--				       [max]="maxDate"-->
+<!--				       matInput required ngModel-->
+<!--				/>-->
+<!--				<mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>-->
+<!--				<mat-datepicker #datePicker></mat-datepicker>-->
+<!--				<mat-error>Require 18 years up.</mat-error>-->
+			</mat-form-field>
+			<div class="w-100 d-flex flex-row-reverse pt-2 pb-2">
+				<button mat-flat-button color="primary" class="d-flex justify-content-end">Login</button>
+			</div>
+		</form>
+	</div>
+
+</div>

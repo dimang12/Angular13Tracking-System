@@ -1,10 +1,12 @@
 <div class="row h-100 ">
-	<div class="col-md-4 offset-md-4 col-sm-12 h-100 d-flex">
+	<div class="col-md-4 offset-md-4 col-sm-10 offset-sm-1 h-100 d-flex">
 		<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="align-self-center block-02 p-3 w-100">
 			<section class="bl-header pb-2 mb-2 d-flex">
-				<h4 class="flex-grow-0">New Category</h4>
+				<h2 class="flex-grow-0">
+					Login
+				</h2>
 				<div class="action flex-grow-1">
-					X
+
 				</div>
 			</section>
 			<mat-form-field class="w-100" appearance="fill">
@@ -24,6 +26,9 @@
 				       matInput ngModel required
 				/>
 			</mat-form-field>
+			<div class="w-100 d-flex flex-row-reverse pt-2 pb-2">
+				<button mat-flat-button color="primary" class="d-flex justify-content-end">Login</button>
+			</div>
 		</form>
 	</div>
 
