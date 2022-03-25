@@ -1,5 +1,5 @@
 <div class="row h-100 m-0">
-	<div class="col-md-4 offset-md-4 col-sm-10 offset-sm-1 h-100 d-flex">
+	<div class="col-md-6 offset-md-3 col-sm-10 offset-sm-1 h-100 d-flex">
 		<form #f="ngForm" (ngSubmit)="onSubmit(f)" class="align-self-center block-02 p-3 w-100">
 			<section class="bl-header pb-2 mb-2 d-flex">
 				<h2 class="flex-grow-0">
@@ -11,7 +11,7 @@
 			</section>
 			<mat-form-field class="w-100" appearance="fill">
 				<mat-label>Email</mat-label>
-				<input type="email" name="loginEmail"  [formControl]="emailFormControl" placeholder="Ex. pat@example.com"
+				<input type="email" name="registerEmail"  [formControl]="emailFormControl" placeholder="Ex. pat@example.com"
 				       matInput ngModel email required
 				>
 				<mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
@@ -22,26 +22,18 @@
 				</mat-error>
 			</mat-form-field>
 			<mat-form-field class="w-100">
-				<input type="password" name="loginPassword"
-				       matInput ngModel required
+				<input type="password" name="registerPassword"
+				       matInput ngModel required placeholder="Password"
 				/>
 			</mat-form-field>
 			<mat-form-field class="w-100">
-				<input type="password" name="conformPassword"
+				<input type="password" name="conformRegisterPassword" placeholder="Confirm password"
 				       matInput ngModel required
 				/>
 			</mat-form-field>
-			<mat-form-field class="w-100">
-<!--				<input name="dateOfBirth" [matDatepicker]="datePicker"  placeholder="Your birthdate"-->
-<!--				       [max]="maxDate"-->
-<!--				       matInput required ngModel-->
-<!--				/>-->
-<!--				<mat-datepicker-toggle matSuffix [for]="datePicker"></mat-datepicker-toggle>-->
-<!--				<mat-datepicker #datePicker></mat-datepicker>-->
-<!--				<mat-error>Require 18 years up.</mat-error>-->
-			</mat-form-field>
+
 			<div class="w-100 d-flex flex-row-reverse pt-2 pb-2">
-				<button mat-flat-button color="primary" class="d-flex justify-content-end">Login</button>
+				<button mat-flat-button color="primary" class="d-flex justify-content-end">Register</button>
 			</div>
 		</form>
 	</div>

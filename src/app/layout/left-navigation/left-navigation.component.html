@@ -2,17 +2,23 @@
 	<div class="p-4 ts-bg-primary-dark flex-grow-0 ">
 		<b>LOGO</b>
 	</div>
-	<ul class="list-unstyled flex-grow-1">
-		<li class="p-3 text-center">
-			<i class="bi-house-fill f-xx-large"></i>
+	<ul class="list-unstyled flex-grow-1 nav-link-item">
+		<li class=" text-center">
+			<a  routerLink="/home" [routerLinkActive]="['active']" class="p-3 d-block text-white">
+				<i class="bi-house-fill f-xx-large"></i>
+			</a>
 		</li>
+		<li class="text-center">
+			<a  routerLink="/project" [routerLinkActive]="['active']" class="p-3 d-block text-white">
+				<i class="bi-boxes f-xx-large"></i>
+			</a>
 
-		<li class="p-3 text-center">
-			<i class="bi-boxes f-xx-large"></i>
 		</li>
+		<li class=" text-center">
+			<a  routerLink="/task" [routerLinkActive]="['active']" class="p-3 d-block text-white">
+				<i class="bi-alarm-fill f-xx-large"></i>
+			</a>
 
-		<li class="p-3 text-center">
-			<i class="bi-alarm-fill f-xx-large"></i>
 		</li>
 	</ul>
 	<div class="flex-grow-0">

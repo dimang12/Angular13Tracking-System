@@ -1,0 +1,14 @@
+.nav-link-item li a {
+    -moz-transition: all .2s ease-in;
+    -o-transition: all .2s ease-in;
+    -webkit-transition: all .2s ease-in;
+    transition: all .2s ease-in;
+    background: rgba(0,0,0,.0);
+}
+
+.nav-link-item li a:hover,
+.nav-link-item li a.active
+{
+    background: rgba(0,0,0,.2);
+}
+

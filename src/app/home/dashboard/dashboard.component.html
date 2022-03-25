@@ -1,1 +1,98 @@
-<p>dashboard works!</p>
+<div class="container-fluid">
+	<div class="row">
+		<app-breadcrumb></app-breadcrumb>
+	</div>
+	<div class="row">
+		<div class="col-md-7 col-sm-12">
+			<div class="block-02">
+				<header class="bl-header">
+					<h2 class="p-3 m-0 ">Urgent Tasks</h2>
+				</header>
+				<div class="p-3">
+					<ul class="todo-list m-t ui-sortable">
+						<li>
+							<mat-checkbox   value="" color="primary">Checkbox label
+							</mat-checkbox>
+							<span class="m-l-xs">Buy a milk</span>
+							<small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
+						</li>
+						<li>
+							<mat-checkbox   value="" color="primary">Checkbox label
+							</mat-checkbox>
+							<span class="m-l-xs">Go to shop and find some products.</span>
+							<small class="label label-info"><i class="fa fa-clock-o"></i> 3 mins</small>
+						</li>
+						<li>
+							<mat-checkbox   value="" color="primary">Checkbox label
+							</mat-checkbox>
+							<span class="m-l-xs">Send documents to Mike</span>
+							<small class="label label-warning"><i class="fa fa-clock-o"></i> 2 mins</small>
+						</li>
+						<li>
+							<mat-checkbox   value="" color="primary">Checkbox label
+							</mat-checkbox>
+							<span class="m-l-xs">Go to the doctor dr Smith</span>
+							<small class="label label-danger"><i class="fa fa-clock-o"></i> 42 mins</small>
+						</li>
+					</ul>
+				</div>
+				<footer class="bl-footer  p-3">
+					footer
+				</footer>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="block-02">
+				<header class="bl-header">
+					<h2 class="p-3 m-0">Projects</h2>
+
+				</header>
+				<div class="bl-body">
+					<div class="list-group">
+						<a routerLink="/project-detail/1" class="list-group-item list-group-item-action d-flex border-0 border-bottom" aria-current="true">
+
+							<div class="flex-grow-0 p-3">
+								<button mat-mini-fab color="primary">
+									<mat-icon class="f-large">folder</mat-icon>
+								</button>
+							</div>
+							<div class="flex-grow-1 ps-1">
+								<div class="row m-0">
+									<div class="col-9">
+										<div mat-line class="fw-bold">Learning Photoshop - Essential</div>
+										<small mat-line>
+											This space will be placed some <br>
+											detail about the project.
+										</small>
+										<div mat-line class="pt-3 pb-3">
+											<button type="button" class="btn rounded rounded-pill btn-sm btn-secondary position-relative">
+												Tasks
+												<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+										    99+
+										    <span class="visually-hidden">unread messages</span>
+										</span>
+											</button>
+											<img src="" class="img-thumbnail rounded-circle" alt=".">
+										</div>
+									</div>
+									<div class="col-3">
+										<small>40% completed</small>
+										<mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
+									</div>
+								</div>
+
+
+							</div>
+						</a>
+						<a href="#" class="list-group-item list-group-item-action">A second link item</a>
+						<a href="#" class="list-group-item list-group-item-action">A third link item</a>
+						<a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+						<a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+					</div>
+				</div>
+				<footer></footer>
+			</div>
+		</div>
+	</div>
+</div>
+
