@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider'
 import { MatListModule } from '@angular/material/list'
@@ -10,23 +9,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 // Material
-import {MatMenuModule} from '@angular/material/menu';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatInputModule} from '@angular/material/input';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatChipsModule} from '@angular/material/chips';
-// import {MatDatepicker} from '@angular/material/datepicker';
-// import {MatFormField} from '@angular/material/form-field';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatChipsModule } from '@angular/material/chips';
 
-import { provideFirebaseApp, getApp, initializeApp } from '@angular/fire/app';
-import { getFirestore, provideFirestore } from '@angular/fire/firestore';
-
-import { AppComponent } from './app.component';
-
-
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { environment } from '../environments/environment';
+import { AppComponent } from './app.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { TopNavigationComponent } from './layout/top-navigation/top-navigation.component';
 import { LeftNavigationComponent } from './layout/left-navigation/left-navigation.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -37,9 +29,9 @@ import { ProjectComponent } from './project/project.component';
 import { TaskComponent } from './task/task.component';
 import { BreadcrumbComponent } from './layout/breadcrumb/breadcrumb.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
-
-
-
+import { AngularFireModule } from "@angular/fire/compat";
+import { AngularFireAuthModule } from "@angular/fire/compat/auth";
+import { AngularFireDatabaseModule } from "@angular/fire/compat/database";
 
 @NgModule({
   declarations: [
@@ -58,7 +50,7 @@ import { ProjectDetailComponent } from './project/project-detail/project-detail.
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    // provideFirebaseApp(() => initializeApp(environment.firebase)),
     FlexLayoutModule,
     AppRoutingModule,
     MatIconModule,
@@ -70,9 +62,11 @@ import { ProjectDetailComponent } from './project/project-detail/project-detail.
     MatListModule,
     MatProgressBarModule,
     MatChipsModule,
-    // MatDatepicker,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   providers: [],
   bootstrap: [AppComponent]

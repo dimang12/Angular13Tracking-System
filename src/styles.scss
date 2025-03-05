@@ -1,7 +1,9 @@
 @import "assets/scss/variable";
 @import "assets/scss/block-container";
 @import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html, body { height: 100%; }
 body    { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -49,7 +51,7 @@ a       { text-decoration: none; }
   display: inline-block;
   font-size: 16px;
 }
- 
+
 .todo-list > li .label {
   font-size: 9px;
   margin-left: 10px;
