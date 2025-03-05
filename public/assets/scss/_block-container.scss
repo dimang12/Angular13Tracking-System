@@ -1,0 +1,22 @@
+.block-02 {
+  background-color: $white;
+  border: $border solid 1px;
+  box-shadow: 0 0 13px 0 rgb(0, 0, 0, .05);
+  border-radius: 4px;
+  .bl-header {
+    border-bottom: $border solid 1px;
+
+  }
+  .bl-body {
+
+  }
+  .bl-footer {
+    background-color: aliceblue;
+  }
+  .btn-close {
+    background-color: $pink;
+  }
+  .btn-close:hover {
+    background-color: $pink-light;
+  }
+}
