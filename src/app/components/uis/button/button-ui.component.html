@@ -1,3 +1,6 @@
-<button class="flex justify-content-center items-center drop-shadow-md shadow-fuchsia-950 bg-fuchsia-800 text-white px-3 py-1 rounded-pill border-b-4 border-fuchsia-950">
+<button
+  [ngClass]="[color, size]"
+  [attr.type]="type"
+  class="flex justify-content-center items-center drop-shadow-md shadow-fuchsia-950 text-white px-3 py-1 rounded-pill border-b-2 border-black border-opacity-30  hover:bg-opacity-75 hover:border-opacity-75">
   <ng-content></ng-content>
 </button>

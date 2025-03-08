@@ -4,6 +4,9 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
+import { MatDatepicker} from "@angular/material/datepicker";
+import { MatOption } from '@angular/material/core';
+
 import { NewProjectComponent } from './new-project/new-project.component';
 
 export interface ProjectElement {
