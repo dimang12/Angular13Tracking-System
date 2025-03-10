@@ -28,10 +28,15 @@ import { MatNativeDateModule } from "@angular/material/core";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider'
 import { MatListModule } from '@angular/material/list'
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
+// pipes
+import { TruncatePipe } from './pipes/truncate.pipe';
+import { StatusPipe} from "./pipes/status.pipe";
+
 import { TopNavigationComponent } from './layout/top-navigation/top-navigation.component';
 import { LeftNavigationComponent } from './layout/left-navigation/left-navigation.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -48,9 +53,13 @@ import ButtonUiComponent from './components/uis/button/button-ui.component';
 import { UiComponent } from './components/uis/ui.component';
 import { EditProjectComponent } from './project/edit-project/edit-project.component';
 import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-dialog.component';
+import { NewTaskComponent } from './task/new-task/new-task.component';
+import { EditTaskComponent } from './task/edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
+    TruncatePipe, StatusPipe,
+
     AppComponent,
     TopNavigationComponent,
     LeftNavigationComponent,
@@ -67,7 +76,9 @@ import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-
     ButtonUiComponent,
     UiComponent,
     EditProjectComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    NewTaskComponent,
+    EditTaskComponent
   ],
   imports: [
     BrowserModule,

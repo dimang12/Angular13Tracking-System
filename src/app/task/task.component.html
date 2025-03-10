@@ -1,0 +1,82 @@
+<!-- src/app/task/task.component.html -->
+<div class="flex-col gap-y-2 h-100 m-0 bg-purple-50 p-4">
+  <app-breadcrumb></app-breadcrumb>
+  <app-blanket>
+    <section class="bl-header pb-2 mb-2 flex space-x-6 justify-content-between">
+      <h2 class="flex-grow-1 m-0">
+        Task Management
+      </h2>
+      <div class="flex items-center space-x-4">
+        <div class="relative">
+          <label for="name" class="absolute -top-2 left-2 inline-block rounded-lg bg-white px-1 text-xs font-medium text-gray-900">Search</label>
+          <input
+            (keyup)="applyFilter($event)"
+            type="text"
+            class="block w-56 rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6"
+            placeholder="Search task here">
+        </div>
+        <div class="relative">
+          <label for="status" class="absolute -top-2 left-2 inline-block rounded-lg bg-white px-1 text-xs font-medium text-gray-900">Status</label>
+          <div class="w-56">
+            <mat-select (selectionChange)="applyStatusFilter($event.value)" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6">
+              <mat-option value="">All</mat-option>
+              <mat-option *ngFor="let status of statusParams" [value]="status.value">{{ status.label }}</mat-option>
+            </mat-select>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <app-button-ui size="small" (click)="openNewDialog()">
+          New Task
+        </app-button-ui>
+      </div>
+    </section>
+    <div class="flex-grow-1">
+      <table mat-table [dataSource]="dataSource" class="w-100">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <td mat-cell *matCellDef="let element" class="w-25"> {{element.name | truncate:100}} </td>
+        </ng-container>
+
+        <!-- Due Date Column -->
+        <ng-container matColumnDef="dueDate">
+          <th mat-header-cell *matHeaderCellDef> Due Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.dueDate | date}} </td>
+        </ng-container>
+
+        <!-- Status Column -->
+        <ng-container matColumnDef="status">
+          <th mat-header-cell *matHeaderCellDef> Status </th>
+          <td mat-cell *matCellDef="let element"> {{element.status | status}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>
+            Action
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex space-x-1">
+              <button mat-icon-button class="small-icon-button" (click)="openEditDialog(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="small-icon-button" (click)="openDeleteDialog(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+
+      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                     showFirstLastButtons
+                     aria-label="Select page of projects">
+      </mat-paginator>
+
+    </div>
+  </app-blanket>
+</div>
