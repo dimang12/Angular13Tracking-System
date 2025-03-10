@@ -59,8 +59,8 @@ export class ProjectComponent implements AfterViewInit, OnInit {
    */
   openEditDialog(project: ProjectInterface): void {
     const dialogRef = this.dialog.open(EditProjectComponent, {
-      width: '80%',
-      height: '80%',
+      width: '60%',
+      height: '60%',
       data: project
     });
 

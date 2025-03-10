@@ -1,0 +1,48 @@
+<form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="p-4 pb-0 h-100 flex flex-col gap-y-2">
+  <h2 class="">New Task</h2>
+  <div class="grow flex-col gap-y-2">
+    <div class="flex space-x-6">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Task Name</mat-label>
+        <input matInput formControlName="name" required>
+      </mat-form-field>
+
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Project</mat-label>
+        <mat-select formControlName="project" required>
+          <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Status</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option value=1>Not Start</mat-option>
+        <mat-option value=2>On Going</mat-option>
+        <mat-option value=3>Completed</mat-option>
+        <mat-option value=4>On Hold</mat-option>
+        <mat-option value=5>Cancelled</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div class="flex space-x-6">
+      <mat-form-field class="w-100" appearance="fill">
+        <mat-label>Due Date</mat-label>
+        <input matInput [matDatepicker]="dueDatePicker" formControlName="dueDate" required>
+        <mat-datepicker-toggle matSuffix [for]="dueDatePicker"></mat-datepicker-toggle>
+        <mat-datepicker #dueDatePicker></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field class="w-100" appearance="fill">
+      <mat-label>Task Detail</mat-label>
+      <textarea matInput formControlName="detail"></textarea>
+    </mat-form-field>
+  </div>
+
+  <div class="flex pt-2 pb-2 items-end justify-end space-x-4">
+    <app-button-ui size="small" color="light" (click)="onCancel()">Cancel</app-button-ui>
+    <app-button-ui size="medium" type="submit" [disabled]="taskForm.invalid">Create Task</app-button-ui>
+  </div>
+</form>
