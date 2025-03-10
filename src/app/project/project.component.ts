@@ -4,26 +4,12 @@ import { MatSort, Sort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDialog } from '@angular/material/dialog';
-import { MatDatepicker} from "@angular/material/datepicker";
-import { MatOption } from '@angular/material/core';
 
 import { NewProjectComponent } from './new-project/new-project.component';
-
-export interface ProjectElement {
-  id: number;
-  name: string;
-  status: string;
-  startDate: Date;
-  endDate: Date;
-}
-
-const PROJECT_DATA: ProjectElement[] = [
-  { id: 1, name: 'Project Alpha', status: 'Active', startDate: new Date('2023-01-01'), endDate: new Date('2023-12-31') },
-  { id: 2, name: 'Project Beta', status: 'Completed', startDate: new Date('2022-01-01'), endDate: new Date('2022-12-31') },
-  { id: 3, name: 'Project Gamma', status: 'On Hold', startDate: new Date('2023-06-01'), endDate: new Date('2024-05-31') },
-  { id: 4, name: 'Project Delta', status: 'Active', startDate: new Date('2023-03-01'), endDate: new Date('2023-11-30') },
-  { id: 5, name: 'Project Epsilon', status: 'Cancelled', startDate: new Date('2023-02-01'), endDate: new Date('2023-04-30') },
-];
+import { EditProjectComponent } from './edit-project/edit-project.component';
+import { ConfirmDialogComponent } from '../components/uis/confirm-dialog/confirm-dialog.component';
+import { ProjectService } from "../services/project.service";
+import { ProjectInterface } from "../interfaces/project.interface";
 
 @Component({
   selector: 'app-project',
@@ -31,18 +17,24 @@ const PROJECT_DATA: ProjectElement[] = [
   styleUrls: ['./project.component.css'],
 })
 export class ProjectComponent implements AfterViewInit, OnInit {
-  public displayedColumns: string[] = ['id', 'name', 'status', 'startDate', 'endDate'];
-  public dataSource = new MatTableDataSource(PROJECT_DATA);
+  public displayedColumns: string[] = ['imageUrl', 'name', 'status', 'startDate', 'endDate', 'action'];
+  public dataSource = new MatTableDataSource<ProjectInterface>();
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private _liveAnnouncer: LiveAnnouncer,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private projectService: ProjectService
   ) { }
 
   ngOnInit(): void {
+    // initialize data source from project
+    this.projectService.getProjects().subscribe((projects) => {
+      this.dataSource.data = projects;
+    });
+
   }
 
   ngAfterViewInit() {
@@ -58,6 +50,40 @@ export class ProjectComponent implements AfterViewInit, OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
+    });
+  }
+
+  /**
+   * Open edit dialog
+   * @param project ProjectInterface
+   */
+  openEditDialog(project: ProjectInterface): void {
+    const dialogRef = this.dialog.open(EditProjectComponent, {
+      width: '80%',
+      height: '80%',
+      data: project
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+    });
+  }
+
+  /**
+   * Delete project confirmation
+   */
+  openDeleteDialog(element: any): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data: { name: element.name }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.projectService.deleteProject(element.id).subscribe(() => {
+          this.dataSource.data = this.dataSource.data.filter((project) => project.id !== element.id);
+        });
+      }
     });
   }
 

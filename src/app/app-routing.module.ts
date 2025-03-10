@@ -20,6 +20,7 @@ const routes: Routes = [
   {path: 'project', component: ProjectComponent},
   {path: 'project-detail/:id', component: ProjectDetailComponent},
   {path: 'task', component: TaskComponent},
+  {path: 'task/:id', component: TaskComponent},
   {path: 'home', component: DashboardComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
 

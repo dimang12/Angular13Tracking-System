@@ -46,6 +46,8 @@ import { BlanketComponent } from './components/uis/blanket/blanket.component';
 import { NewProjectComponent } from './project/new-project/new-project.component';
 import ButtonUiComponent from './components/uis/button/button-ui.component';
 import { UiComponent } from './components/uis/ui.component';
+import { EditProjectComponent } from './project/edit-project/edit-project.component';
+import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +65,9 @@ import { UiComponent } from './components/uis/ui.component';
     BlanketComponent,
     NewProjectComponent,
     ButtonUiComponent,
-    UiComponent
+    UiComponent,
+    EditProjectComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

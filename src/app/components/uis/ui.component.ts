@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { colorParams } from 'src/app/services/params/color.params.service';
 import { sizeParams } from 'src/app/services/params/params.service';
-import * as console from "console";
 
 
 @Component({

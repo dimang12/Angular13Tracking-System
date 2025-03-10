@@ -10,23 +10,31 @@
       </app-button-ui>
     </section>
     <div class="flex-grow-1">
-      <table mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)"
+      <table mat-table
+             [dataSource]="dataSource"
+             matSort (matSortChange)="announceSortChange($event)"
              class="w-100">
 
-        <!-- ID Column -->
-        <ng-container matColumnDef="id">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by ID">
-            ID
+        <!-- Image Column -->
+        <ng-container matColumnDef="imageUrl">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Image">
+            Image
           </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          <td mat-cell *matCellDef="let element">
+            <img [src]="element.imageUrl ? element.imageUrl : 'assets/images/default-image-icon.png'" alt="{{element.name}}" class="w-16 h-16 m-2 object-cover rounded-full">
+          </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
-            Name
+            Project Name
           </th>
-          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+          <td mat-cell *matCellDef="let element">
+            <a [routerLink]="['/task', element.id]" class="text-blue-500 hover:underline">
+              {{element.name}}
+            </a>
+          </td>
         </ng-container>
 
         <!-- Status Column -->
@@ -51,6 +59,23 @@
             End Date
           </th>
           <td mat-cell *matCellDef="let element"> {{element.endDate | date}} </td>
+        </ng-container>
+
+        <!-- Action Column -->
+        <ng-container matColumnDef="action">
+          <th mat-header-cell *matHeaderCellDef>
+            Action
+          </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex space-x-1">
+              <button mat-icon-button class="small-icon-button" (click)="openEditDialog(element)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button class="small-icon-button" (click)="openDeleteDialog(element)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+          </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
