@@ -39,10 +39,10 @@
           <td mat-cell *matCellDef="let element" class="w-25"> {{element.name | truncate:100}} </td>
         </ng-container>
 
-        <!-- Due Date Column -->
-        <ng-container matColumnDef="dueDate">
-          <th mat-header-cell *matHeaderCellDef> Due Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.dueDate | date}} </td>
+        <!-- Project Column -->
+        <ng-container matColumnDef="project">
+          <th mat-header-cell *matHeaderCellDef> Project </th>
+          <td mat-cell *matCellDef="let element"> {{element.project.name}} </td>
         </ng-container>
 
         <!-- Status Column -->
@@ -50,6 +50,37 @@
           <th mat-header-cell *matHeaderCellDef> Status </th>
           <td mat-cell *matCellDef="let element"> {{element.status | status}} </td>
         </ng-container>
+
+        <!-- Start Date Column -->
+        <ng-container matColumnDef="startDate">
+          <th mat-header-cell *matHeaderCellDef> Start Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.startDate | date}} </td>
+        </ng-container>
+
+        <!-- End Date Column -->
+        <ng-container matColumnDef="endDate">
+          <th mat-header-cell *matHeaderCellDef> End Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.endDate | date}} </td>
+        </ng-container>
+
+        <!-- Number of Days Column -->
+        <ng-container matColumnDef="numberOfDays">
+          <th mat-header-cell *matHeaderCellDef> Number of Days </th>
+          <td mat-cell *matCellDef="let element"> {{element.numberOfDays}} </td>
+        </ng-container>
+
+        <!-- Level Of Effort (loe) Column -->
+        <ng-container matColumnDef="loe">
+          <th mat-header-cell *matHeaderCellDef> LOE </th>
+          <td mat-cell *matCellDef="let element"> {{element.loe}} </td>
+        </ng-container>
+
+        <!-- Percentage of Task Column -->
+        <ng-container matColumnDef="percentageCompletion">
+          <th mat-header-cell *matHeaderCellDef> Percentage </th>
+          <td mat-cell *matCellDef="let element"> {{element.percentageCompletion | percentage}} </td>
+        </ng-container>
+
 
         <!-- Action Column -->
         <ng-container matColumnDef="action">

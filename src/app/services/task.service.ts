@@ -14,7 +14,9 @@ export class TaskService {
     return this.firestore.collection('tasks').valueChanges({ idField: 'id' }).pipe(
       map((tasks: any[]) => tasks.map(task => ({
         ...task,
-        dueDate: task.dueDate.toDate()
+        dueDate: task.dueDate.toDate(),
+        startDate: task?.startDate?.toDate(),
+        endDate: task?.endDate?.toDate(),
       })))
     );
   }

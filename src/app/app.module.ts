@@ -36,6 +36,7 @@ import { AppComponent } from './app.component';
 // pipes
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { StatusPipe} from "./pipes/status.pipe";
+import { PercentagePipe } from "./pipes/percentage.pipe";
 
 import { TopNavigationComponent } from './layout/top-navigation/top-navigation.component';
 import { LeftNavigationComponent } from './layout/left-navigation/left-navigation.component';
@@ -58,7 +59,7 @@ import { EditTaskComponent } from './task/edit-task/edit-task.component';
 
 @NgModule({
   declarations: [
-    TruncatePipe, StatusPipe,
+    TruncatePipe, StatusPipe, PercentagePipe,
 
     AppComponent,
     TopNavigationComponent,
