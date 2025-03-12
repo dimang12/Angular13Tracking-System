@@ -155,24 +155,44 @@ export class TaskComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Edit cell
+   * @param element TaskInterface
+   * @param column string
+   */
   editCell(element: TaskInterface, column: string): void {
     this.editingCell[element.id + column] = true;
   }
 
+  /**
+   * Is the cell being edited
+   * @param element TaskInterface
+   * @param column string
+   * @returns boolean
+   */
   isEditing(element: TaskInterface, column: string): boolean {
     return this.editingCell[element.id + column];
   }
 
+  /**
+   * Save edit cell
+   * @param element TaskInterface
+   * @param column string
+   */
   saveEdit(element: TaskInterface, column: string): void {
     this.editingCell[element.id + column] = false;
     this.taskService.updateTask(element.id, element).subscribe();
   }
 
 
+  /**
+   * Get project name
+   * @param projectId string
+   * @returns string
+   */
   getProjectName(projectId: string): string {
     console.log('getProjectName', this.projects, projectId);
     const project = this.projects.find(p => p.id.toString() === projectId);
-    // // debugger;
     return project ? project.name : '';
   }
 }
