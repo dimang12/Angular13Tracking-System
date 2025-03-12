@@ -37,7 +37,11 @@ export class NewTaskComponent implements OnInit {
 
   onSubmit(): void {
     if (this.taskForm.valid) {
-      this.taskService.addTask(this.taskForm.value).subscribe(() => {
+      const taskData = {
+        ...this.taskForm.value,
+        taskNumber: Math.floor(1000000000 + Math.random() * 9000000000).toString()
+      };
+      this.taskService.addTask(taskData).subscribe(() => {
         this.dialogRef.close();
       });
     }
