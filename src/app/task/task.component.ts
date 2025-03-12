@@ -29,6 +29,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   public projectId: string | null = '';
   public pageSize = 10;
   public projects: ProjectInterface[] = [];
+  public selectedProject: string | null = '';
 
   // Edit Cells
   private editingCell: { [key: string]: boolean } = {};
@@ -50,6 +51,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
         this.loadTasks();
       });
     });
+
   }
 
   /**
@@ -66,6 +68,11 @@ export class TaskComponent implements OnInit, AfterViewInit {
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
+  applyProjectFilter(projectId: string): void {
+    this.selectedProject = projectId;
+    this.dataSource.filter = this.selectedProject? this.selectedProject : '';
   }
 
   /**
@@ -91,6 +98,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
     });
   }
 
+  /**
+   * Load projects
+   */
   private loadProjects(): Observable<ProjectInterface[]> {
     return this.projectService.getProjects().pipe(
       map((projects) => {
