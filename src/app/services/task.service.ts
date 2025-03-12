@@ -3,6 +3,7 @@ import { AngularFirestore, DocumentReference } from '@angular/fire/compat/firest
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { TaskInterface } from '../interfaces/task.interface';
+import { ProjectInterface } from '../interfaces/project.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class TaskService {
     return this.firestore.collection('tasks').valueChanges({ idField: 'id' }).pipe(
       map((tasks: any[]) => tasks.map(task => ({
         ...task,
-        dueDate: task.dueDate.toDate(),
+        // dueDate: task.dueDate.toDate(),
         startDate: task?.startDate?.toDate(),
         endDate: task?.endDate?.toDate(),
       })))

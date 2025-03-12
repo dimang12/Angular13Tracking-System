@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { TaskService } from '../../services/task.service';
 import { ProjectService } from '../../services/project.service';
 import { ProjectInterface } from '../../interfaces/project.interface';
+import { TaskInterface } from '../../interfaces/task.interface';
+import { percentageParams } from '../../services/params/params.service';
 
 @Component({
   selector: 'app-new-task',
@@ -13,6 +15,8 @@ import { ProjectInterface } from '../../interfaces/project.interface';
 export class NewTaskComponent implements OnInit {
   public taskForm: FormGroup;
   public projects: ProjectInterface[] = [];
+  public tasks: TaskInterface[] = [];
+  public percentageParams = percentageParams;
 
   constructor(
     private fb: FormBuilder,
@@ -22,10 +26,18 @@ export class NewTaskComponent implements OnInit {
   ) {
     this.taskForm = this.fb.group({
       name: ['', Validators.required],
-      project: ['', Validators.required],  // Ensure this control is defined
-      dueDate: ['', Validators.required],
+      project: ['', Validators.required],
+      dueDate: [''],
       status: ['', Validators.required],
-      detail: ['', Validators.required]
+      detail: ['', Validators.required],
+      startDate: [''],
+      endDate: [''],
+      numberOfDays: [{ value: '', disabled: true }],
+      priority: [''],
+      parentTask: [''],
+      loe: [''],
+      percentageCompletion: [''],
+      taskNumber: ['']
     });
   }
 
@@ -33,6 +45,22 @@ export class NewTaskComponent implements OnInit {
     this.projectService.getProjects().subscribe((projects) => {
       this.projects = projects;
     });
+
+    this.taskService.getTasks().subscribe((tasks) => {
+      this.tasks = tasks;
+    });
+  }
+
+  calculateDays(): void {
+    const startDate = this.taskForm.get('startDate')?.value;
+    const endDate = this.taskForm.get('endDate')?.value;
+    if (startDate && endDate) {
+      const start = new Date(startDate);
+      const end = new Date(endDate);
+      const diffTime = Math.abs(end.getTime() - start.getTime());
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      this.taskForm.get('numberOfDays')?.setValue(diffDays);
+    }
   }
 
   onSubmit(): void {

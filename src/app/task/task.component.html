@@ -35,27 +35,52 @@
       <table mat-table [dataSource]="dataSource" class="w-100">
         <!-- Display taskNumber Column -->
         <ng-container matColumnDef="taskNumber">
-          <th mat-header-cell *matHeaderCellDef> # </th>
-          <td mat-cell *matCellDef="let element"> {{element.taskNumber}} </td>
+          <th width="150" mat-header-cell *matHeaderCellDef> # </th>
+          <td class="text-gray-800 font-bold" mat-cell *matCellDef="let element"> {{element.taskNumber}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let element" class="w-25"> {{element.name | truncate:100}} </td>
+          <th width="380" mat-header-cell *matHeaderCellDef> Name </th>
+          <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'name')">
+            <input class="p-2 border rounded-md w-full" *ngIf="isEditing(element, 'name')" [(ngModel)]="element.name" (blur)="saveEdit(element, 'name')" />
+            <span *ngIf="!isEditing(element, 'name')">{{element.name}}</span>
+          </td>
         </ng-container>
 
         <!-- Project Column -->
         <ng-container matColumnDef="project">
           <th mat-header-cell *matHeaderCellDef> Project </th>
-          <td mat-cell *matCellDef="let element"> {{element.project.name}} </td>
+          <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'project')">
+            <mat-select
+              class="p-1 border rounded-md"
+              *ngIf="isEditing(element, 'project')"
+              [(ngModel)]="element.project"
+              (selectionChange)="saveEdit(element, 'project')"
+            >
+              <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
+            </mat-select>
+            <span *ngIf="!isEditing(element, 'project')">{{ getProjectName(element.project) }}</span>
+          </td>
         </ng-container>
 
         <!-- Status Column -->
         <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef> Status </th>
-          <td mat-cell *matCellDef="let element" [ngClass]="element.status | statusColor">
-            {{element.status | status}}
+          <th class="w-28" mat-header-cell *matHeaderCellDef> Status </th>
+          <td class="pe-2" [ngClass]="element.status | statusColor" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'status')" >
+            <mat-select
+              class="p-1 border rounded-md"
+              *ngIf="isEditing(element, 'status')"
+              [(ngModel)]="element.status"
+              (selectionChange)="saveEdit(element, 'status')"
+            >
+              <mat-option value=1>Not Start</mat-option>
+              <mat-option value=2>On Going</mat-option>
+              <mat-option value=3>Completed</mat-option>
+              <mat-option value=4>On Hold</mat-option>
+              <mat-option value=5>Cancelled</mat-option>
+            </mat-select>
+            <span *ngIf="!isEditing(element, 'status')">{{element.status | status}}</span>
           </td>
         </ng-container>
 
@@ -74,29 +99,35 @@
         <!-- Number of Days Column -->
         <ng-container matColumnDef="numberOfDays">
           <th mat-header-cell *matHeaderCellDef> Days </th>
-          <td mat-cell *matCellDef="let element"> {{element.numberOfDays}} </td>
+          <td class="text-gray-300" mat-cell *matCellDef="let element"> {{element.numberOfDays}} </td>
         </ng-container>
 
         <!-- Level Of Effort (loe) Column -->
         <ng-container matColumnDef="loe">
-          <th mat-header-cell *matHeaderCellDef> LOE </th>
-          <td mat-cell *matCellDef="let element"> {{element.loe}} </td>
+          <th class="w-14" mat-header-cell *matHeaderCellDef> LOE </th>
+          <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'loe')">
+            <input class="p-1 border rounded-md w-12" *ngIf="isEditing(element, 'loe')" [(ngModel)]="element.loe" (blur)="saveEdit(element, 'loe')" />
+            <span *ngIf="!isEditing(element, 'loe')">{{element.loe}}</span>
+          </td>
         </ng-container>
 
         <!-- Percentage of Task Column -->
-        <ng-container matColumnDef="percentageCompletion">
-          <th mat-header-cell *matHeaderCellDef> Percentage </th>
-          <td mat-cell *matCellDef="let element"> {{element.percentageCompletion | percentage}} </td>
+        <<ng-container matColumnDef="percentageCompletion">
+          <th class="w-16" mat-header-cell *matHeaderCellDef> Percentage </th>
+          <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'percentageCompletion')">
+            <input class="p-1 border rounded-md w-14" *ngIf="isEditing(element, 'percentageCompletion')" [(ngModel)]="element.percentageCompletion" (blur)="saveEdit(element, 'percentageCompletion')" />
+            <span *ngIf="!isEditing(element, 'percentageCompletion')">{{element.percentageCompletion | percentage}}</span>
+          </td>
         </ng-container>
 
 
         <!-- Action Column -->
         <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef>
+          <th class="text-center" mat-header-cell *matHeaderCellDef>
             Action
           </th>
           <td mat-cell *matCellDef="let element">
-            <div class="flex space-x-1">
+            <div class="flex justify-center">
               <button mat-icon-button class="small-icon-button" (click)="openEditDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>
@@ -113,6 +144,7 @@
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                      showFirstLastButtons
+                      [pageSize]="pageSize"
                      aria-label="Select page of projects">
       </mat-paginator>
 
