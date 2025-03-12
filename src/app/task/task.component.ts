@@ -2,6 +2,8 @@ import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from '../services/task.service';
 import { TaskInterface } from '../interfaces/task.interface';
+import { ProjectInterface } from '../interfaces/project.interface';
+import { ProjectService } from '../services/project.service';
 import { MatSort} from "@angular/material/sort";
 import { MatPaginator} from "@angular/material/paginator";
 import { MatDialog} from "@angular/material/dialog";
@@ -10,6 +12,7 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
 import { ConfirmDialogComponent} from "../components/uis/confirm-dialog/confirm-dialog.component";
 import { statusParams } from '../services/params/params.service';
 import { ActivatedRoute } from '@angular/router';
+import {Observable, map} from "rxjs";
 
 @Component({
   selector: 'app-task',
@@ -25,20 +28,27 @@ export class TaskComponent implements OnInit, AfterViewInit {
   public statusParams = statusParams;
   public projectId: string | null = '';
   public pageSize = 10;
+  public projects: ProjectInterface[] = [];
+
+  // Edit Cells
+  private editingCell: { [key: string]: boolean } = {};
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(
     private taskService: TaskService,
+    private projectService: ProjectService,
     public dialog: MatDialog,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(params => {
-      this.projectId = params.get('projectId');
-      this.loadTasks();
+    this.loadProjects().subscribe(() => {
+      this.route.paramMap.subscribe(params => {
+        this.projectId = params.get('projectId');
+        this.loadTasks();
+      });
     });
   }
 
@@ -79,6 +89,15 @@ export class TaskComponent implements OnInit, AfterViewInit {
         this.dataSource.data = tasks;
       }
     });
+  }
+
+  private loadProjects(): Observable<ProjectInterface[]> {
+    return this.projectService.getProjects().pipe(
+      map((projects) => {
+        this.projects = projects;
+        return projects;
+      })
+    );
   }
 
   /**
@@ -124,6 +143,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
       }
     });
 
+    /**
+     * After dialog closed
+     */
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.taskService.deleteTask(task.id).subscribe(() => {
@@ -131,5 +153,26 @@ export class TaskComponent implements OnInit, AfterViewInit {
         });
       }
     });
+  }
+
+  editCell(element: TaskInterface, column: string): void {
+    this.editingCell[element.id + column] = true;
+  }
+
+  isEditing(element: TaskInterface, column: string): boolean {
+    return this.editingCell[element.id + column];
+  }
+
+  saveEdit(element: TaskInterface, column: string): void {
+    this.editingCell[element.id + column] = false;
+    this.taskService.updateTask(element.id, element).subscribe();
+  }
+
+
+  getProjectName(projectId: string): string {
+    console.log('getProjectName', this.projects, projectId);
+    const project = this.projects.find(p => p.id.toString() === projectId);
+    // // debugger;
+    return project ? project.name : '';
   }
 }
