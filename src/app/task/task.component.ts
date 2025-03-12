@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from '../services/task.service';
 import { TaskInterface } from '../interfaces/task.interface';
@@ -16,7 +16,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.css']
 })
-export class TaskComponent implements OnInit {
+export class TaskComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = [
     'taskNumber','name', 'project', 'status', 'percentageCompletion',
     'startDate', 'endDate', 'numberOfDays', 'loe', 'action'
@@ -24,6 +24,7 @@ export class TaskComponent implements OnInit {
   public dataSource = new MatTableDataSource<TaskInterface>();
   public statusParams = statusParams;
   public projectId: string | null = '';
+  public pageSize = 10;
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -41,7 +42,10 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  onAfterViewInit() {
+  /**
+   * After view init
+   */
+  ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
