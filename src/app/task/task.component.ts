@@ -105,8 +105,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
    */
   public openNewDialog(): void {
     const dialogRef = this.dialog.open(NewTaskComponent, {
-      width: '60%',
-      height: '60%',
+      width: '80%',
+      height: '80%',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -191,7 +191,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
    * @returns string
    */
   getProjectName(projectId: string): string {
-    console.log('getProjectName', this.projects, projectId);
     const project = this.projects.find(p => p.id.toString() === projectId);
     return project ? project.name : '';
   }

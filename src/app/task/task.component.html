@@ -35,13 +35,13 @@
       <table mat-table [dataSource]="dataSource" class="w-100">
         <!-- Display taskNumber Column -->
         <ng-container matColumnDef="taskNumber">
-          <th mat-header-cell *matHeaderCellDef> # </th>
-          <td mat-cell *matCellDef="let element"> {{element.taskNumber}} </td>
+          <th width="150" mat-header-cell *matHeaderCellDef> # </th>
+          <td class="text-gray-800 font-bold" mat-cell *matCellDef="let element"> {{element.taskNumber}} </td>
         </ng-container>
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> Name </th>
+          <th width="380" mat-header-cell *matHeaderCellDef> Name </th>
           <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'name')">
             <input class="p-2 border rounded-md w-full" *ngIf="isEditing(element, 'name')" [(ngModel)]="element.name" (blur)="saveEdit(element, 'name')" />
             <span *ngIf="!isEditing(element, 'name')">{{element.name}}</span>
@@ -56,7 +56,6 @@
               class="p-1 border rounded-md"
               *ngIf="isEditing(element, 'project')"
               [(ngModel)]="element.project"
-              (blur)="isEditing(element, 'project') ? saveEdit(element, 'project') : null"
               (selectionChange)="saveEdit(element, 'project')"
             >
               <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
@@ -73,7 +72,6 @@
               class="p-1 border rounded-md"
               *ngIf="isEditing(element, 'status')"
               [(ngModel)]="element.status"
-              (blur)="isEditing(element, 'status') ? saveEdit(element, 'status') : null"
               (selectionChange)="saveEdit(element, 'status')"
             >
               <mat-option value=1>Not Start</mat-option>
@@ -100,8 +98,8 @@
 
         <!-- Number of Days Column -->
         <ng-container matColumnDef="numberOfDays">
-          <th mat-header-cell *matHeaderCellDef> Hours </th>
-          <td mat-cell *matCellDef="let element"> {{element.numberOfDays}} </td>
+          <th mat-header-cell *matHeaderCellDef> Days </th>
+          <td class="text-gray-300" mat-cell *matCellDef="let element"> {{element.numberOfDays}} </td>
         </ng-container>
 
         <!-- Level Of Effort (loe) Column -->
