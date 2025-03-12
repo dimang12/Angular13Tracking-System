@@ -9,6 +9,7 @@ import { NewTaskComponent } from './new-task/new-task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
 import { ConfirmDialogComponent} from "../components/uis/confirm-dialog/confirm-dialog.component";
 import { statusParams } from '../services/params/params.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-task',
@@ -22,6 +23,7 @@ export class TaskComponent implements OnInit {
   ];
   public dataSource = new MatTableDataSource<TaskInterface>();
   public statusParams = statusParams;
+  public projectId: string | null = '';
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -29,11 +31,13 @@ export class TaskComponent implements OnInit {
   constructor(
     private taskService: TaskService,
     public dialog: MatDialog,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.taskService.getTasks().subscribe((tasks) => {
-      this.dataSource.data = tasks;
+    this.route.paramMap.subscribe(params => {
+      this.projectId = params.get('projectId');
+      this.loadTasks();
     });
   }
 
@@ -58,6 +62,19 @@ export class TaskComponent implements OnInit {
       return status ? +data.status === status : true;
     };
     this.dataSource.filter = status ? status.toString() : '';
+  }
+
+  /**
+   * Load tasks
+   */
+  private loadTasks(): void {
+    this.taskService.getTasks().subscribe((tasks) => {
+      if (this.projectId) {
+        this.dataSource.data = tasks.filter(task => task.project === this.projectId);
+      } else {
+        this.dataSource.data = tasks;
+      }
+    });
   }
 
   /**
