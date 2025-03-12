@@ -17,7 +17,7 @@ import { statusParams } from '../services/params/params.service';
 })
 export class TaskComponent implements OnInit {
   public displayedColumns: string[] = [
-    'name', 'project', 'status', 'percentageCompletion',
+    'taskNumber','name', 'project', 'status', 'percentageCompletion',
     'startDate', 'endDate', 'numberOfDays', 'loe', 'action'
   ];
   public dataSource = new MatTableDataSource<TaskInterface>();

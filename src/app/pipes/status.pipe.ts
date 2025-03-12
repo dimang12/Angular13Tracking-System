@@ -10,3 +10,13 @@ export class StatusPipe implements PipeTransform {
     return status ? status.label : 'Unknown';
   }
 }
+
+@Pipe({
+  name: 'statusColor'
+})
+export class StatusColorPipe implements PipeTransform {
+  transform(value: number): string {
+    const status = statusParams.find(status => status.value.toString() === value.toString());
+    return status ? status.color : 'text-black';
+  }
+}

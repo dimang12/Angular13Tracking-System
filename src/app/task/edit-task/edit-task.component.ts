@@ -37,7 +37,8 @@ export class EditTaskComponent implements OnInit {
       priority: [data.priority],
       parentTask: [data.parentTask],
       loe: [data.loe],
-      percentageCompletion: [data.percentageCompletion]
+      percentageCompletion: [data.percentageCompletion],
+      taskNumber: [data.taskNumber]
     });
   }
 

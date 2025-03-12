@@ -1,5 +1,6 @@
 export interface TaskInterface {
   id: string;
+  taskNumber: string;
   project: string;
   name: string;
   detail: string;

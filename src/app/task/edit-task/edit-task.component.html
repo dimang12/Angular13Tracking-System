@@ -1,11 +1,12 @@
 <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="p-4 pb-0 h-100 flex flex-col gap-y-2">
   <div class="flex justify-between items-center">
-    <h2>Edit Task</h2>
+    <h2>Edit Task:</h2>
+    <span class="text-orange-500 font-thin">{{ taskForm.value.taskNumber }}</span>
   </div>
   <div class="grow flex-col gap-y-2">
     <div class="flex space-x-6">
       <mat-form-field class="w-100" appearance="fill">
-        <mat-label>Task Name</mat-label>
+        <mat-label>Task Name: </mat-label>
         <input matInput formControlName="name" required>
       </mat-form-field>
 
