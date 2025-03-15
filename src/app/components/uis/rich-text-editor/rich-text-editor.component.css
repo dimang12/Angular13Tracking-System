@@ -1,0 +1,12 @@
+/* rich-text-editor.component.css */
+.ql-toolbar {
+  @apply bg-gray-100 border-b border-gray-300;
+}
+
+.ql-container {
+  @apply border border-gray-300 rounded-b-lg;
+}
+
+.ql-editor {
+  @apply h-full p-4 text-gray-800;
+}

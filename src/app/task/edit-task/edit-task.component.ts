@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TaskService } from '../../services/task.service';
 import { ProjectService } from '../../services/project.service';
+import { CommentService } from '../../services/comment.service';
 import { ProjectInterface } from '../../interfaces/project.interface';
 import { TaskInterface } from '../../interfaces/task.interface';
 import { percentageParams } from '../../services/params/params.service';
@@ -14,14 +15,17 @@ import { percentageParams } from '../../services/params/params.service';
 })
 export class EditTaskComponent implements OnInit {
   public taskForm: FormGroup;
+  public commentForm: FormGroup;
   public projects: ProjectInterface[] = [];
   public tasks: TaskInterface[] = [];
   public percentageParams = percentageParams;
+  public comments: string[] = [];
 
   constructor(
     private fb: FormBuilder,
     private taskService: TaskService,
     private projectService: ProjectService,
+    private commentService: CommentService,
     public dialogRef: MatDialogRef<EditTaskComponent>,
     @Inject(MAT_DIALOG_DATA) public data: TaskInterface
   ) {
@@ -40,6 +44,10 @@ export class EditTaskComponent implements OnInit {
       percentageCompletion: [this.data.percentageCompletion],
       taskNumber: [this.data.taskNumber]
     });
+
+    this.commentForm = this.fb.group({
+      comment: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
@@ -50,6 +58,8 @@ export class EditTaskComponent implements OnInit {
     this.taskService.getTasks().subscribe((tasks) => {
       this.tasks = tasks;
     });
+
+    this.loadComments();
   }
 
   /**
@@ -83,6 +93,28 @@ export class EditTaskComponent implements OnInit {
       this.taskForm.get('numberOfDays')?.disable(); // Disable the control again if needed
     }
   }
+
+
+  private loadComments(): void {
+    this.commentService.getComments(this.data.id).subscribe((comments: any[]) => {
+      this.comments = comments.map(comment => comment.comment);
+    });
+  }
+
+  onCommentSubmit(): void {
+    if (this.commentForm.valid) {
+      this.commentService.addComment(this.data.id, this.commentForm.value.comment).subscribe(() => {
+        this.comments.push(this.commentForm.value.comment);
+        this.commentForm.reset();
+      });
+    }
+  }
+
+
+  onEditorContentChanged(content: string): void {
+    this.commentForm.get('comment')?.setValue(content);
+  }
+
 
   /**
    * On cancel close dialog

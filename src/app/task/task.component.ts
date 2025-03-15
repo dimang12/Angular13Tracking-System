@@ -12,7 +12,7 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
 import { ConfirmDialogComponent} from "../components/uis/confirm-dialog/confirm-dialog.component";
 import { statusParams } from '../services/params/params.service';
 import { ActivatedRoute } from '@angular/router';
-import {Observable, map} from "rxjs";
+import { Observable, map} from "rxjs";
 
 @Component({
   selector: 'app-task',
@@ -86,7 +86,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
    * Apply status filter
    */
   applyStatusFilter(status: number): void {
-    this.dataSource.filterPredicate = (data: TaskInterface, filter: string) => {
+    this.dataSource.filterPredicate = (data: TaskInterface) => {
       return status ? +data.status === status : true;
     };
     this.dataSource.filter = status ? status.toString() : '';
@@ -131,7 +131,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
     });
   }
@@ -147,7 +147,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       data: task
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
     });
   }
