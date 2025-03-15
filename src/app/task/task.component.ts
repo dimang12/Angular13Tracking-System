@@ -12,7 +12,7 @@ import { EditTaskComponent } from './edit-task/edit-task.component';
 import { ConfirmDialogComponent} from "../components/uis/confirm-dialog/confirm-dialog.component";
 import { statusParams } from '../services/params/params.service';
 import { ActivatedRoute } from '@angular/router';
-import {Observable, map} from "rxjs";
+import { Observable, map} from "rxjs";
 
 @Component({
   selector: 'app-task',
@@ -21,8 +21,8 @@ import {Observable, map} from "rxjs";
 })
 export class TaskComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = [
-    'taskNumber','name', 'project', 'status', 'percentageCompletion',
-    'startDate', 'endDate', 'numberOfDays', 'loe', 'action'
+    'taskNumber', 'project', 'name', 'status', 'percentageCompletion',
+    'numberOfDays', 'loe', 'startDate', 'endDate', 'action'
   ];
   public dataSource = new MatTableDataSource<TaskInterface>();
   public statusParams = statusParams;
@@ -52,6 +52,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
       });
     });
 
+    this.applyStatusFilter(2);
+
   }
 
   /**
@@ -70,6 +72,11 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
+  /**
+   * Apply project filter
+   * @param projectId string
+   */
   applyProjectFilter(projectId: string): void {
     this.selectedProject = projectId;
     this.dataSource.filter = this.selectedProject? this.selectedProject : '';
@@ -79,21 +86,23 @@ export class TaskComponent implements OnInit, AfterViewInit {
    * Apply status filter
    */
   applyStatusFilter(status: number): void {
-    this.dataSource.filterPredicate = (data: TaskInterface, filter: string) => {
+    this.dataSource.filterPredicate = (data: TaskInterface) => {
       return status ? +data.status === status : true;
     };
     this.dataSource.filter = status ? status.toString() : '';
   }
 
   /**
-   * Load tasks
+   * Load tasks and order small end date to the top
    */
   private loadTasks(): void {
     this.taskService.getTasks().subscribe((tasks) => {
       if (this.projectId) {
-        this.dataSource.data = tasks.filter(task => task.project === this.projectId);
+        this.dataSource.data = tasks
+          .filter(task => task.project === this.projectId)
+          .sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
       } else {
-        this.dataSource.data = tasks;
+        this.dataSource.data = tasks.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
       }
     });
   }
@@ -117,9 +126,12 @@ export class TaskComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(NewTaskComponent, {
       width: '80%',
       height: '80%',
+      data: {
+        projectId: this.projectId
+      }
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
     });
   }
@@ -135,7 +147,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       data: task
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(() => {
       console.log('The dialog was closed');
     });
   }

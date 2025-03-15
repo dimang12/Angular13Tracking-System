@@ -26,8 +26,10 @@ import { MatOptionModule } from '@angular/material/core';
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDividerModule } from '@angular/material/divider'
-import { MatListModule } from '@angular/material/list'
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatTabsModule } from "@angular/material/tabs";
+import { MatCardModule } from "@angular/material/card";
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { environment } from '../environments/environment';
@@ -56,6 +58,7 @@ import { EditProjectComponent } from './project/edit-project/edit-project.compon
 import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-dialog.component';
 import { NewTaskComponent } from './task/new-task/new-task.component';
 import { EditTaskComponent } from './task/edit-task/edit-task.component';
+import { RichTextEditorComponent } from './components/uis/rich-text-editor/rich-text-editor.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +82,8 @@ import { EditTaskComponent } from './task/edit-task/edit-task.component';
     EditProjectComponent,
     ConfirmDialogComponent,
     NewTaskComponent,
-    EditTaskComponent
+    EditTaskComponent,
+    RichTextEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -112,7 +116,9 @@ import { EditTaskComponent } from './task/edit-task/edit-task.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatSelectModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatTabsModule,
+    MatCardModule
   ],
   providers: [],
   bootstrap: [AppComponent]

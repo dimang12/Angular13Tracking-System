@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TaskService } from '../../services/task.service';
 import { ProjectService } from '../../services/project.service';
 import { ProjectInterface } from '../../interfaces/project.interface';
@@ -22,7 +22,8 @@ export class NewTaskComponent implements OnInit {
     private fb: FormBuilder,
     private taskService: TaskService,
     private projectService: ProjectService,
-    public dialogRef: MatDialogRef<NewTaskComponent>
+    public dialogRef: MatDialogRef<NewTaskComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: { projectId: string | null }
   ) {
     this.taskForm = this.fb.group({
       name: ['', Validators.required],
@@ -44,6 +45,9 @@ export class NewTaskComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.getProjects().subscribe((projects) => {
       this.projects = projects;
+      if (this.data.projectId) {
+        this.taskForm.get('project')?.setValue(this.data.projectId);
+      }
     });
 
     this.taskService.getTasks().subscribe((tasks) => {
@@ -59,7 +63,7 @@ export class NewTaskComponent implements OnInit {
       const end = new Date(endDate);
       const diffTime = Math.abs(end.getTime() - start.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      this.taskForm.get('numberOfDays')?.setValue(diffDays);
+      this.taskForm.get('numberOfDays')?.setValue(diffDays+1);
     }
   }
 
