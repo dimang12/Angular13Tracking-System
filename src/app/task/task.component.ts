@@ -21,8 +21,8 @@ import {Observable, map} from "rxjs";
 })
 export class TaskComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = [
-    'taskNumber','name', 'project', 'status', 'percentageCompletion',
-    'startDate', 'endDate', 'numberOfDays', 'loe', 'action'
+    'taskNumber', 'project', 'name', 'status', 'percentageCompletion',
+    'numberOfDays', 'loe', 'startDate', 'endDate', 'action'
   ];
   public dataSource = new MatTableDataSource<TaskInterface>();
   public statusParams = statusParams;
@@ -52,6 +52,8 @@ export class TaskComponent implements OnInit, AfterViewInit {
       });
     });
 
+    this.applyStatusFilter(2);
+
   }
 
   /**
@@ -70,6 +72,11 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
+
+  /**
+   * Apply project filter
+   * @param projectId string
+   */
   applyProjectFilter(projectId: string): void {
     this.selectedProject = projectId;
     this.dataSource.filter = this.selectedProject? this.selectedProject : '';
@@ -86,14 +93,16 @@ export class TaskComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * Load tasks
+   * Load tasks and order small end date to the top
    */
   private loadTasks(): void {
     this.taskService.getTasks().subscribe((tasks) => {
       if (this.projectId) {
-        this.dataSource.data = tasks.filter(task => task.project === this.projectId);
+        this.dataSource.data = tasks
+          .filter(task => task.project === this.projectId)
+          .sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
       } else {
-        this.dataSource.data = tasks;
+        this.dataSource.data = tasks.sort((a, b) => new Date(a.endDate).getTime() - new Date(b.endDate).getTime());
       }
     });
   }
@@ -117,6 +126,9 @@ export class TaskComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(NewTaskComponent, {
       width: '80%',
       height: '80%',
+      data: {
+        projectId: this.projectId
+      }
     });
 
     dialogRef.afterClosed().subscribe(result => {
