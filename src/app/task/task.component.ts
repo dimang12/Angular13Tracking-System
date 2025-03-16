@@ -3,6 +3,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from '../services/task.service';
 import { TaskInterface } from '../interfaces/task.interface';
 import { ProjectInterface } from '../interfaces/project.interface';
+import { BreadcrumbInterface } from "../interfaces/breadcrumb.interface";
 import { ProjectService } from '../services/project.service';
 import { MatSort} from "@angular/material/sort";
 import { MatPaginator} from "@angular/material/paginator";
@@ -31,11 +32,17 @@ export class TaskComponent implements OnInit, AfterViewInit {
   public projects: ProjectInterface[] = [];
   public selectedProject: string | null = '';
 
+  // create breadcrumb items
+  public breadcrumbs: BreadcrumbInterface[] = [
+    { label: 'Task', link: '/task', active: true }
+  ];
+
   // Edit Cells
   private editingCell: { [key: string]: boolean } = {};
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+
 
   constructor(
     private taskService: TaskService,
