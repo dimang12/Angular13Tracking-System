@@ -10,6 +10,7 @@ import { EditProjectComponent } from './edit-project/edit-project.component';
 import { ConfirmDialogComponent } from '../components/uis/confirm-dialog/confirm-dialog.component';
 import { ProjectService } from "../services/project.service";
 import { ProjectInterface } from "../interfaces/project.interface";
+import { BreadcrumbInterface } from "../interfaces/breadcrumb.interface";
 
 @Component({
   selector: 'app-project',
@@ -19,6 +20,11 @@ import { ProjectInterface } from "../interfaces/project.interface";
 export class ProjectComponent implements AfterViewInit, OnInit {
   public displayedColumns: string[] = ['imageUrl', 'name', 'status', 'startDate', 'endDate', 'action'];
   public dataSource = new MatTableDataSource<ProjectInterface>();
+
+  // create breadcrumb items
+  public breadcrumbs: BreadcrumbInterface[] = [
+    { label: 'Project', link: '/project', active: true }
+  ];
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
