@@ -1,10 +1,10 @@
 {
   "firestore": {
-    "rules": "firesotre.rules",
+    "rules": "firebase.rules",
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist/tracking-system13",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
