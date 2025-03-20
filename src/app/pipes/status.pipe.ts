@@ -5,7 +5,7 @@ import { statusParams } from '../services/params/params.service';
   name: 'status'
 })
 export class StatusPipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: number | string): string {
     const status = statusParams.find(status => status.value.toString() === value.toString());
     return status ? status.label : 'Unknown';
   }
