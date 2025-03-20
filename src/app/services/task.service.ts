@@ -23,6 +23,21 @@ export class TaskService {
   }
 
   /**
+   * Get task by status and limit number
+   */
+  public getTasksByStatus(statuses: string[], limit: number): Observable<TaskInterface[]> {
+    return this.firestore.collection('tasks', ref => ref.where('status', 'in', statuses).limit(limit)).valueChanges({ idField: 'id' }).pipe(
+      map((tasks: any[]) => tasks.map(task => ({
+        ...task,
+        // dueDate: task.dueDate.toDate(),
+        startDate: task?.startDate?.toDate(),
+        endDate: task?.endDate?.toDate(),
+      })))
+    );
+  }
+
+
+  /**
    * add task service
    */
   public addTask(task: TaskInterface): Observable<DocumentReference<unknown>> {
