@@ -74,6 +74,12 @@ export class NewTaskComponent implements OnInit {
         taskNumber: Math.floor(1000000000 + Math.random() * 9000000000).toString()
       };
       this.taskService.addTask(taskData).subscribe(() => {
+        if (taskData.project) {
+          // update number of task in project
+          this.taskService.updateNumberOfTaskInProject(taskData.project);
+          // update percentage completion in project
+          this.taskService.updateCompletionPercentage(taskData.project);
+        }
         this.dialogRef.close();
       });
     }

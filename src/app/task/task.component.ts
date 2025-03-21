@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from '../services/task.service';
 import { TaskInterface } from '../interfaces/task.interface';
@@ -31,6 +31,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   public pageSize = 10;
   public projects: ProjectInterface[] = [];
   public selectedProject: string | null = '';
+  public currentStatusFilter: number | null = null;
 
   // create breadcrumb items
   public breadcrumbs: BreadcrumbInterface[] = [
@@ -42,6 +43,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
+  @ViewChild('statusFilter') statusFilter!: ElementRef;
 
 
   constructor(
@@ -86,15 +88,26 @@ export class TaskComponent implements OnInit, AfterViewInit {
    */
   applyProjectFilter(projectId: string): void {
     this.selectedProject = projectId;
-    this.dataSource.filter = this.selectedProject? this.selectedProject : '';
+    this.currentStatusFilter = null; // Reset status filter
+    this.dataSource.filterPredicate = (data: TaskInterface) => {
+      return this.selectedProject ? data.project === this.selectedProject : true;
+    };
+    this.dataSource.filter = this.selectedProject ? this.selectedProject : '';
+    // Check if statusFilter is defined before setting its value
+    if (this.statusFilter && this.statusFilter.nativeElement) {
+      this.statusFilter.nativeElement.value = '';
+    }
   }
 
   /**
    * Apply status filter
    */
   applyStatusFilter(status: number): void {
+    this.currentStatusFilter = status;
     this.dataSource.filterPredicate = (data: TaskInterface) => {
-      return status ? +data.status === status : true;
+      const matchesStatus = this.currentStatusFilter ? +data.status === this.currentStatusFilter : true;
+      const matchesProject = this.selectedProject ? data.project === this.selectedProject : true;
+      return matchesStatus && matchesProject;
     };
     this.dataSource.filter = status ? status.toString() : '';
   }
@@ -179,6 +192,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       if (result) {
         this.taskService.deleteTask(task.id).subscribe(() => {
           this.dataSource.data = this.dataSource.data.filter((t) => t.id !== task.id);
+          this.taskService.updateNumberOfTaskInProject(task.project)
         });
       }
     });

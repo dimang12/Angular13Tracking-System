@@ -1,93 +1,91 @@
-<div class="container-fluid">
-	<div class="row">
-		<app-breadcrumb></app-breadcrumb>
-	</div>
+<div class="flex flex-col gap-y-4 p-4">
+  <app-breadcrumb></app-breadcrumb>
 	<div class="row">
 		<div class="col-md-7 col-sm-12">
 			<div class="block-02">
 				<header class="bl-header">
-					<h2 class="p-3 m-0 ">Urgent Tasks</h2>
+					<div class="p-3 m-0 flex justify-between items-center">
+            <h2 class="flex-grow">Todo Tasks</h2>
+            <a class="flex items-center" routerLink="/task">
+              See all
+              <mat-icon size="text-sm">arrow_forward</mat-icon>
+            </a>
+          </div>
 				</header>
-				<div class="p-3">
+				<div class="p-4">
 					<ul class="todo-list m-t ui-sortable">
-						<li>
-							<mat-checkbox   value="" color="primary">Checkbox label
-							</mat-checkbox>
-							<span class="m-l-xs">Buy a milk</span>
-							<small class="label label-primary"><i class="fa fa-clock-o"></i> 1 mins</small>
-						</li>
-						<li>
-							<mat-checkbox   value="" color="primary">Checkbox label
-							</mat-checkbox>
-							<span class="m-l-xs">Go to shop and find some products.</span>
-							<small class="label label-info"><i class="fa fa-clock-o"></i> 3 mins</small>
-						</li>
-						<li>
-							<mat-checkbox   value="" color="primary">Checkbox label
-							</mat-checkbox>
-							<span class="m-l-xs">Send documents to Mike</span>
-							<small class="label label-warning"><i class="fa fa-clock-o"></i> 2 mins</small>
-						</li>
-						<li>
-							<mat-checkbox   value="" color="primary">Checkbox label
-							</mat-checkbox>
-							<span class="m-l-xs">Go to the doctor dr Smith</span>
-							<small class="label label-danger"><i class="fa fa-clock-o"></i> 42 mins</small>
-						</li>
+            <li *ngFor="let task of tasks" class="flex">
+              <div class="flex-grow flex flex-col">
+                <a routerLink="/task" class="text-[16px]">{{task.name}} </a>
+                <a routerLink="/task/{{task.project}}" class="text-gray-400 text-[12px]">{{task.projectName}}</a>
+              </div>
+              <div class="label-primary text-[10px]">
+                <span class="{{ task.status | statusColor }}">{{ task.status | status }} </span>
+                <span class="text-gray-400">|</span>
+                <b class="text-gray-400"> {{ task.endDate | date: 'MMMM, dd' }} </b>
+              </div>
+            </li>
 					</ul>
 				</div>
-				<footer class="bl-footer  p-3">
-					footer
-				</footer>
 			</div>
 		</div>
 		<div class="col-md-5">
 			<div class="block-02">
 				<header class="bl-header">
-					<h2 class="p-3 m-0">Projects</h2>
-
+          <div class="flex p-4">
+            <h2 class="flex-grow m-0">Projects</h2>
+            <a class="flex items-center" routerLink="/project">
+              See all
+              <mat-icon size="text-sm">arrow_forward</mat-icon>
+            </a>
+          </div>
 				</header>
 				<div class="bl-body">
 					<div class="list-group">
-						<a routerLink="/project-detail/1" class="list-group-item list-group-item-action d-flex border-0 border-bottom" aria-current="true">
-
-							<div class="flex-grow-0 p-3">
-								<button mat-mini-fab color="primary">
-									<mat-icon class="f-large">folder</mat-icon>
-								</button>
-							</div>
-							<div class="flex-grow-1 ps-1">
-								<div class="row m-0">
-									<div class="col-9">
-										<div mat-line class="fw-bold">Learning Photoshop - Essential</div>
-										<small mat-line>
-											This space will be placed some <br>
-											detail about the project.
-										</small>
-										<div mat-line class="pt-3 pb-3">
-											<button type="button" class="btn rounded rounded-pill btn-sm btn-secondary position-relative">
-												Tasks
-												<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-										    99+
-										    <span class="visually-hidden">unread messages</span>
-										</span>
-											</button>
-											<img src="" class="img-thumbnail rounded-circle" alt=".">
-										</div>
-									</div>
-									<div class="col-3">
-										<small>40% completed</small>
-										<mat-progress-bar mode="determinate" value="40"></mat-progress-bar>
-									</div>
-								</div>
-
-
-							</div>
-						</a>
-						<a href="#" class="list-group-item list-group-item-action">A second link item</a>
-						<a href="#" class="list-group-item list-group-item-action">A third link item</a>
-						<a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-						<a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+            <a *ngIf="projects.length > 0" [routerLink]="['/project-detail', projects[0].id]" class="list-group-item list-group-item-action d-flex border-0 border-bottom" aria-current="true">
+              <div class="flex-grow-0 p-3">
+                <button mat-mini-fab color="primary">
+                  <mat-icon class="f-large">folder</mat-icon>
+                </button>
+              </div>
+              <div class="flex-grow-1 ps-1">
+                <div class="row m-0">
+                  <div class="col-9">
+                    <div mat-line class="fw-bold">{{ projects[0].name }}</div>
+                    <small mat-line>
+                      {{ projects[0].detail }}
+                    </small>
+                    <div mat-line class="pt-3 pb-3">
+                      <button type="button" class="btn rounded rounded-pill btn-sm btn-secondary position-relative">
+                        Tasks
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                          {{ projects[0].taskCount }}
+                          <span class="visually-hidden">unread messages</span>
+                        </span>
+                      </button>
+                      <img [src]="projects[0].imageUrl ? projects[0].imageUrl : 'assets/images/default-image-icon.png'" class="img-thumbnail rounded-circle" alt=".">
+                    </div>
+                  </div>
+                  <div class="col-3">
+                    <small>{{ projects[0].completionPercentage }}% completed</small>
+                    <mat-progress-bar mode="determinate" [value]="projects[0].completionPercentage"></mat-progress-bar>
+                  </div>
+                </div>
+              </div>
+            </a>
+						<a
+              *ngFor="let project of projects | slice:1"
+              [routerLink]="['/task', project.id]"
+              class="flex items-center space-x-4 tpx-4 py-2 px-4 border-b"
+            >
+              <img [src]="project.imageUrl ? project.imageUrl : 'assets/images/default-image-icon.png'" alt="{{project.name}}" class="rounded-circle w-12 h-12 shadow-md" width="40" height="40">
+              <span class="flex-grow">{{project.name}}</span>
+              <span class="badge rounded-pill bg-primary">{{project.taskCount}}</span>
+              <span class="w-24">
+                <small>{{ (project.completionPercentage) ?? '0.00' }}%</small>
+                <mat-progress-bar mode="determinate" [value]="project.completionPercentage"></mat-progress-bar>
+              </span>
+            </a>
 					</div>
 				</div>
 				<footer></footer>

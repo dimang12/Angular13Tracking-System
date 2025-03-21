@@ -25,9 +25,9 @@
           </div>
         </div>
         <div class="relative">
-          <label for="status" class="absolute -top-2 left-2 inline-block rounded-lg bg-white px-1 text-xs font-medium text-gray-900">Status</label>
+          <label  for="status" class="absolute -top-2 left-2 inline-block rounded-lg bg-white px-1 text-xs font-medium text-gray-900">Status</label>
           <div class="w-56">
-            <mat-select (selectionChange)="applyStatusFilter($event.value)" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" [value]="2">
+            <mat-select #statusFilter (selectionChange)="applyStatusFilter($event.value)" class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 border outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" [value]="2">
               <mat-option value="">All</mat-option>
               <mat-option *ngFor="let status of statusParams" [value]="status.value">{{ status.label }}</mat-option>
             </mat-select>
