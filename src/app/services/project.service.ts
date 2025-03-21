@@ -9,10 +9,11 @@ import { ProjectInterface } from "../interfaces/project.interface";
   providedIn: 'root'
 })
 export class ProjectService {
+  private projectCollection = 'projects';
   constructor(private firestore: AngularFirestore) {}
 
   getProjects(): Observable<ProjectInterface[]> {
-    return this.firestore.collection('projects').valueChanges({ idField: 'id' }).pipe(
+    return this.firestore.collection(this.projectCollection).valueChanges({ idField: 'id' }).pipe(
       map((projects: any[]) => projects.map(project => ({
         ...project,
         startDate: project.startDate.toDate(),
@@ -22,6 +23,6 @@ export class ProjectService {
   }
 
   deleteProject(projectId: string): Observable<void> {
-    return from(this.firestore.collection('projects').doc(projectId).delete());
+    return from(this.firestore.collection(this.projectCollection).doc(projectId).delete());
   }
 }

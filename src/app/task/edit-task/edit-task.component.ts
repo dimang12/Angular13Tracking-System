@@ -88,6 +88,10 @@ export class EditTaskComponent implements OnInit {
         id: this.data.id
       };
       this.taskService.updateTask(taskData.id, taskData).subscribe(() => {
+        // update number of task in project
+        this.taskService.updateNumberOfTaskInProject(taskData.project);
+        // update percentage completion in project
+        this.taskService.updateCompletionPercentage(taskData.project);
         this.dialogRef.close();
       });
       this.taskForm.get('numberOfDays')?.disable(); // Disable the control again if needed

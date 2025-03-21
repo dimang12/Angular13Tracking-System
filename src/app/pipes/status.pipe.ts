@@ -15,7 +15,7 @@ export class StatusPipe implements PipeTransform {
   name: 'statusColor'
 })
 export class StatusColorPipe implements PipeTransform {
-  transform(value: number): string {
+  transform(value: number | string): string {
     const status = statusParams.find(status => status.value.toString() === value.toString());
     return status ? status.color : 'text-black';
   }

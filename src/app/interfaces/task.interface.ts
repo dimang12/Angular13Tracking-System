@@ -14,4 +14,5 @@ export interface TaskInterface {
   parentTask: string;
   loe: number;
   percentageCompletion: number;
+  projectName: string;
 }

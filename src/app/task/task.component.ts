@@ -179,6 +179,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
       if (result) {
         this.taskService.deleteTask(task.id).subscribe(() => {
           this.dataSource.data = this.dataSource.data.filter((t) => t.id !== task.id);
+          this.taskService.updateNumberOfTaskInProject(task.project)
         });
       }
     });

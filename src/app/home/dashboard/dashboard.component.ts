@@ -14,15 +14,13 @@ export class DashboardComponent implements OnInit {
   public tasks: TaskInterface[] = [];
   public projects: ProjectInterface[] = [];
 
-  //TODO: get top on going tasks
-
   constructor(
     private taskService: TaskService,
     private projectService: ProjectService,
   ) { }
 
   ngOnInit(): void {
-    this.taskService.getTasksByStatus(['1','2'], 5).subscribe( tasks => {
+    this.taskService.getTasksByStatus(['1','2'], 8).subscribe( tasks => {
         this.tasks = tasks;
       });
     this.projectService.getProjects().subscribe( projects => {
