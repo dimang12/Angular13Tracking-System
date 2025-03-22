@@ -59,6 +59,8 @@ import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-
 import { NewTaskComponent } from './task/new-task/new-task.component';
 import { EditTaskComponent } from './task/edit-task/edit-task.component';
 import { RichTextEditorComponent } from './components/uis/rich-text-editor/rich-text-editor.component';
+import { DailyReportComponent } from './daily-report/daily-report.component';
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -83,7 +85,8 @@ import { RichTextEditorComponent } from './components/uis/rich-text-editor/rich-
     ConfirmDialogComponent,
     NewTaskComponent,
     EditTaskComponent,
-    RichTextEditorComponent
+    RichTextEditorComponent,
+    DailyReportComponent
   ],
   imports: [
     BrowserModule,
@@ -91,6 +94,7 @@ import { RichTextEditorComponent } from './components/uis/rich-text-editor/rich-
     FlexLayoutModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
 
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
