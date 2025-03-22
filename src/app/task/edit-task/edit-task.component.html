@@ -8,19 +8,19 @@
       </div>
       <div class="grow flex-col gap-y-2">
         <div class="flex space-x-6">
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Task Name: </mat-label>
             <input matInput formControlName="name" required>
           </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Project</mat-label>
             <mat-select formControlName="project" required>
               <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Parent Task</mat-label>
             <mat-select formControlName="parentTask">
               <mat-option *ngFor="let task of tasks" [value]="task.id">{{ task.name }}</mat-option>
@@ -28,30 +28,29 @@
           </mat-form-field>
         </div>
 
-
         <div class="flex space-x-6">
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Start Date</mat-label>
             <input matInput [matDatepicker]="startPicker" formControlName="startDate" (dateChange)="calculateDays()">
             <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
             <mat-datepicker #startPicker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>End Date</mat-label>
             <input matInput [matDatepicker]="endPicker" formControlName="endDate" (dateChange)="calculateDays()">
             <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
             <mat-datepicker #endPicker></mat-datepicker>
           </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Number of Days</mat-label>
             <input matInput formControlName="numberOfDays">
           </mat-form-field>
         </div>
 
         <div class="flex space-x-6">
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Status</mat-label>
             <mat-select formControlName="status" required>
               <mat-option value=1>Not Start</mat-option>
@@ -62,7 +61,7 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Priority</mat-label>
             <mat-select formControlName="priority">
               <mat-option value="Low">Low</mat-option>
@@ -72,12 +71,12 @@
             </mat-select>
           </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Level of Effort (LOE)</mat-label>
             <input matInput formControlName="loe">
           </mat-form-field>
 
-          <mat-form-field class="w-100" appearance="fill">
+          <mat-form-field class="w-100" appearance="outline">
             <mat-label>Percentage of Completion</mat-label>
             <mat-select formControlName="percentageCompletion">
               <mat-option *ngFor="let percentage of percentageParams" [value]="percentage.value">
@@ -87,8 +86,7 @@
           </mat-form-field>
         </div>
 
-
-        <mat-form-field class="w-100" appearance="fill">
+        <mat-form-field class="w-100" appearance="outline">
           <mat-label>Task Detail</mat-label>
           <textarea rows="10" matInput formControlName="detail"></textarea>
         </mat-form-field>
@@ -120,6 +118,3 @@
     </div>
   </mat-tab>
 </mat-tab-group>
-
-
-

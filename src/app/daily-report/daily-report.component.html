@@ -1,0 +1,34 @@
+<mat-tab-group>
+  <!-- Notation Form Tab -->
+  <mat-tab label="Notation Form">
+    <div class="p-4">
+      <h2>Notation Form</h2>
+      <form (ngSubmit)="submitReport()">
+        <!-- Report Input -->
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Write your report</mat-label>
+          <textarea matInput [(ngModel)]="reportContent" name="reportContent" rows="10"></textarea>
+        </mat-form-field>
+
+        <!-- AI Writing Assistance -->
+        <button type="button" mat-raised-button color="primary" (click)="improveWriting()">Improve Writing</button>
+
+        <!-- Submit Button -->
+        <button type="submit" mat-raised-button color="accent" class="ms-2">Submit Report</button>
+      </form>
+    </div>
+  </mat-tab>
+
+  <!-- History Tab -->
+  <mat-tab label="History">
+    <div class="p-4">
+      <h2>Previous Reports</h2>
+      <mat-list>
+        <mat-list-item *ngFor="let report of reports">
+          <h3 mat-line>{{ report.date }}</h3>
+          <p mat-line>{{ report.reportDetail }}</p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-tab>
+</mat-tab-group>

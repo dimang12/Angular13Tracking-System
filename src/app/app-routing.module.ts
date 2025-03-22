@@ -11,6 +11,7 @@ import { DashboardComponent } from './home/dashboard/dashboard.component';
 import { ProjectComponent } from './project/project.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component'
 import { TaskComponent } from './task/task.component';
+import {DailyReportComponent} from "./daily-report/daily-report.component";
 
 
 const routes: Routes = [
@@ -21,9 +22,10 @@ const routes: Routes = [
   {path: 'project-detail/:id', component: ProjectDetailComponent},
   {path: 'task', component: TaskComponent},
   {path: 'task/:projectId', component: TaskComponent},
+  // daily report
+  {path: 'daily-report', component: DailyReportComponent},
   {path: 'home', component: DashboardComponent},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
-
 ];
 
 @NgModule({
