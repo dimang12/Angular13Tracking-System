@@ -27,7 +27,7 @@ export class DailyReportService {
    * @returns Observable
    * @param dailyReport
    */
-  public addDalyReport(dailyReport: DailyReportInterface): Observable<DocumentReference<unknown>> {
+  public addDailyReport(dailyReport: DailyReportInterface): Observable<DocumentReference<unknown>> {
     return from(
       this.firestore
         .collection(this.dailyReportCollection)

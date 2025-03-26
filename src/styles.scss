@@ -77,3 +77,14 @@ a       { text-decoration: none; }
 .small-icon-button .mat-icon {
   font-size: 16px; /* Adjust the icon size as needed */
 }
+
+
+// dialog
+.mat-dialog-container { padding: 0 !important; }
+
+
+// override quill editor
+.ql-toolbar.ql-snow {
+  border-top-left-radius: 0.5rem !important;
+  border-top-right-radius: 0.5rem !important;
+}
