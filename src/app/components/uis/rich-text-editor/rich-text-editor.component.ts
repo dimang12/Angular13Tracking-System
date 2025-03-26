@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+// src/app/components/uis/rich-text-editor/rich-text-editor.component.ts
+import { Component, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit, Input } from '@angular/core';
 import Quill from 'quill';
 
 @Component({
@@ -9,7 +10,20 @@ import Quill from 'quill';
 export class RichTextEditorComponent implements AfterViewInit {
   @Output() contentChanged = new EventEmitter<string>();
   @ViewChild('editor') editorElement!: ElementRef;
+  private _content: string = '';
   quill!: Quill;
+
+  @Input()
+  set content(value: string) {
+    this._content = value;
+    if (this.quill) {
+      this.quill.root.innerHTML = value;
+    }
+  }
+
+  get content(): string {
+    return this._content;
+  }
 
   ngAfterViewInit(): void {
     this.quill = new Quill(this.editorElement.nativeElement, {
@@ -24,11 +38,16 @@ export class RichTextEditorComponent implements AfterViewInit {
     });
 
     this.quill.on('text-change', () => {
-      this.contentChanged.emit(this.quill.root.innerHTML);
+      this._content = this.quill.root.innerHTML;
+      this.contentChanged.emit(this._content);
     });
+
+    // Set initial content
+    this.quill.root.innerHTML = this._content;
   }
 
   resetContent(): void {
+    this._content = '';
     this.quill.root.innerHTML = '';
     this.contentChanged.emit('');
   }
