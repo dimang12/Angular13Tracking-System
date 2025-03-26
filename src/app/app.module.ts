@@ -31,6 +31,8 @@ import { MatListModule } from '@angular/material/list';
 import { MatTabsModule } from "@angular/material/tabs";
 import { MatCardModule } from "@angular/material/card";
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatSlideToggleModule } from "@angular/material/slide-toggle";
+import { HttpClientModule } from "@angular/common/http";
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -59,8 +61,7 @@ import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-
 import { NewTaskComponent } from './task/new-task/new-task.component';
 import { EditTaskComponent } from './task/edit-task/edit-task.component';
 import { RichTextEditorComponent } from './components/uis/rich-text-editor/rich-text-editor.component';
-import { DailyReportComponent } from './daily-report/daily-report.component';
-import {HttpClient, HttpClientModule} from "@angular/common/http";
+import { DailyReportComponent } from  './daily-report/daily-report.component';
 
 @NgModule({
   declarations: [
@@ -106,6 +107,7 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatMenuModule,
     MatButtonModule,
     MatInputModule,
+    MatInputModule,
     MatCheckboxModule,
     MatDividerModule,
     MatListModule,
@@ -122,7 +124,8 @@ import {HttpClient, HttpClientModule} from "@angular/common/http";
     MatSelectModule,
     MatFormFieldModule,
     MatTabsModule,
-    MatCardModule
+    MatCardModule,
+    MatSlideToggleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

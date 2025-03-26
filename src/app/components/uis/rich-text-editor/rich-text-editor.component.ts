@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import Quill from 'quill';
 
 @Component({
@@ -6,22 +6,21 @@ import Quill from 'quill';
   templateUrl: './rich-text-editor.component.html',
   styleUrls: ['./rich-text-editor.component.css']
 })
-export class RichTextEditorComponent implements OnInit {
-  @ViewChild('editor', { static: true }) editorElement!: ElementRef;
+export class RichTextEditorComponent implements AfterViewInit {
   @Output() contentChanged = new EventEmitter<string>();
-
+  @ViewChild('editor') editorElement!: ElementRef;
   quill!: Quill;
 
-  ngOnInit(): void {
+  ngAfterViewInit(): void {
     this.quill = new Quill(this.editorElement.nativeElement, {
-      theme: 'snow',
       modules: {
         toolbar: [
           [{ 'header': [1, 2, false] }],
           ['bold', 'italic', 'underline'],
           ['image', 'code-block']
         ]
-      }
+      },
+      theme: 'snow'
     });
 
     this.quill.on('text-change', () => {
@@ -29,7 +28,8 @@ export class RichTextEditorComponent implements OnInit {
     });
   }
 
-  getContent(): string {
-    return this.quill.root.innerHTML;
+  resetContent(): void {
+    this.quill.root.innerHTML = '';
+    this.contentChanged.emit('');
   }
 }

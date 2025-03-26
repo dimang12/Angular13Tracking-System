@@ -1,8 +1,8 @@
 <!-- src/app/task/task.component.html -->
-<div class="flex-col gap-y-2 h-100 m-0 bg-purple-50 p-4">
+<div class="flex-col gap-y-2 m-0 bg-purple-50 p-4">
   <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   <app-blanket>
-    <section class="bl-header pb-2 mb-2 flex space-x-6 justify-content-between">
+    <section class="bl-header pb-2 mb-2 flex space-x-6 justify-content-between p-6">
       <h2 class="flex-grow-1 m-0">
         Task Management
       </h2>
@@ -40,7 +40,7 @@
         </app-button-ui>
       </div>
     </section>
-    <div class="flex-grow-1">
+    <div class="flex-grow-1 p-6">
       <table mat-table matSort [dataSource]="dataSource" class="w-100">
         <!-- Display taskNumber Column -->
         <ng-container matColumnDef="taskNumber">

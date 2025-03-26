@@ -1,7 +1,7 @@
-<div class="flex-col gap-y-2 h-100 m-0 bg-purple-50 p-4">
+<div class="flex-col gap-y-2 m-0 bg-purple-50 p-4">
   <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   <app-blanket>
-    <section class="bl-header pb-2 mb-2 flex justify-content-between">
+    <section class="bl-header p-6 pb-2 mb-2 flex justify-content-between">
       <h2 class="flex-grow-0">
         Project
       </h2>
@@ -9,7 +9,7 @@
         New Project
       </app-button-ui>
     </section>
-    <div class="flex-grow-1">
+    <div class="flex-grow-1 p-6">
       <table mat-table
              [dataSource]="dataSource"
              matSort (matSortChange)="announceSortChange($event)"
