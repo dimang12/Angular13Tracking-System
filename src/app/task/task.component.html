@@ -50,26 +50,14 @@
 
         <!-- Name Column -->
         <ng-container matColumnDef="name">
-          <th width="380" mat-header-cell mat-sort-header *matHeaderCellDef> Name </th>
-          <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'name')">
+          <th width="450" mat-header-cell mat-sort-header *matHeaderCellDef> Name </th>
+          <td class="p-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'name')">
             <input class="p-2 border rounded-md w-full" *ngIf="isEditing(element, 'name')" [(ngModel)]="element.name" (blur)="saveEdit(element, 'name')" />
             <span *ngIf="!isEditing(element, 'name')">{{element.name}}</span>
-          </td>
-        </ng-container>
-
-        <!-- Project Column -->
-        <ng-container matColumnDef="project">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef> Project </th>
-          <td class="pe-2 text-gray-500" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'project')">
-            <mat-select
-              class="p-1 border rounded-md"
-              *ngIf="isEditing(element, 'project')"
-              [(ngModel)]="element.project"
-              (selectionChange)="saveEdit(element, 'project')"
-            >
-              <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
-            </mat-select>
-            <span *ngIf="!isEditing(element, 'project')">{{ getProjectName(element.project) }}</span>
+            <div class="flex items-center space-x-2 mt-1 text-gray-400 text-xs">
+              <img [src]="getProjectImage(element.project)" alt="{{element.name}}" class="w-6 h-6 object-cover rounded-full" />
+              <span *ngIf="!isEditing(element, 'project')">{{ getProjectName(element.project) }}</span>
+            </div>
           </td>
         </ng-container>
 
@@ -96,13 +84,13 @@
         <!-- Start Date Column -->
         <ng-container matColumnDef="startDate">
           <th mat-header-cell mat-sort-header *matHeaderCellDef> Start Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.startDate | date}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.startDate | date:'MMM d'}} </td>
         </ng-container>
 
         <!-- End Date Column -->
         <ng-container matColumnDef="endDate">
           <th mat-header-cell mat-sort-header *matHeaderCellDef> End Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.endDate | date}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.endDate | date:'MMM d'}} </td>
         </ng-container>
 
         <!-- Number of Days Column -->
@@ -121,7 +109,7 @@
         </ng-container>
 
         <!-- Percentage of Task Column -->
-        <<ng-container matColumnDef="percentageCompletion">
+        <ng-container matColumnDef="percentageCompletion">
           <th class="w-16" mat-header-cell mat-sort-header *matHeaderCellDef> Percentage </th>
           <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'percentageCompletion')">
             <input class="p-1 border rounded-md w-14" *ngIf="isEditing(element, 'percentageCompletion')" [(ngModel)]="element.percentageCompletion" (blur)="saveEdit(element, 'percentageCompletion')" />
@@ -129,14 +117,13 @@
           </td>
         </ng-container>
 
-
         <!-- Action Column -->
         <ng-container matColumnDef="action">
           <th class="text-center" mat-header-cell *matHeaderCellDef>
             Action
           </th>
-          <td mat-cell *matCellDef="let element">
-            <div class="flex justify-center">
+          <td mat-cell *matCellDef="let element" class="relative">
+            <div class="flex justify-center action-buttons" *ngIf="selectedTask === element">
               <button mat-icon-button class="small-icon-button" (click)="openEditDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>
@@ -148,12 +135,12 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectTask(row)" [class.selected]="selectedTask === row"></tr>
       </table>
 
       <mat-paginator [pageSizeOptions]="[5, 10, 20]"
                      showFirstLastButtons
-                      [pageSize]="pageSize"
+                     [pageSize]="pageSize"
                      aria-label="Select page of projects">
       </mat-paginator>
 
