@@ -1,3 +1,10 @@
+
+export interface ReferenceInterface {
+  id: string;
+  name: string;
+  type: 'task' | 'project';
+}
+
 export interface DailyReportInterface {
   id: string;
   // userId: string or null
@@ -5,4 +12,6 @@ export interface DailyReportInterface {
   reportDetail: string;
   date: Date;
   status: number;
+  content: string;
+  references: ReferenceInterface[];
 }

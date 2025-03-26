@@ -6,10 +6,12 @@ import { ProjectService } from '../services/project.service';
 import { DailyReportService } from '../services/daily-report.service';
 import { TaskInterface } from '../interfaces/task.interface';
 import { ProjectInterface } from '../interfaces/project.interface';
+import { DailyReportInterface, ReferenceInterface } from '../interfaces/daily-report.interface';
 import { BreadcrumbInterface } from '../interfaces/breadcrumb.interface';
 import { DatePipe } from '@angular/common';
 import { Timestamp } from '@angular/fire/firestore';
 import { RichTextEditorComponent } from '../components/uis/rich-text-editor/rich-text-editor.component';
+import { ConfirmDialogComponent } from '../components/uis/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-daily-report',
@@ -20,6 +22,7 @@ import { RichTextEditorComponent } from '../components/uis/rich-text-editor/rich
 export class DailyReportComponent implements OnInit {
   @ViewChild('referencePopup') referencePopup!: TemplateRef<any>;
   @ViewChild(RichTextEditorComponent) richTextEditor!: RichTextEditorComponent;
+  @ViewChild('tabGroup') tabGroup: any;
 
   reportForm: FormGroup;
   selectedDate: Date = new Date();
@@ -27,12 +30,16 @@ export class DailyReportComponent implements OnInit {
   isContentEmpty: boolean = true;
   tasks: TaskInterface[] = [];
   projects: ProjectInterface[] = [];
-  references: Array<{ name: string }> = [];
+  references: Array<ReferenceInterface> = [];
   reports: any[] = [];
   filteredReports: any[] = [];
   public breadcrumbs: BreadcrumbInterface[] = [
     { label: 'Daily Report', link: '/daily-report', active: true }
   ];
+  isLoading: boolean = false;
+  isEditMode: boolean = false;
+  currentReportId: string | null = null;
+  content: string = '';
 
   quillModules = {
     toolbar: [
@@ -52,7 +59,7 @@ export class DailyReportComponent implements OnInit {
   ) {
     this.reportForm = this.fb.group({
       date: [this.selectedDate, Validators.required],
-      content: ['', Validators.required]
+      content: [this.content, Validators.required]
     });
   }
 
@@ -106,12 +113,12 @@ export class DailyReportComponent implements OnInit {
     this.dialog.closeAll();
   }
 
-  addReference(ref: { name: string }): void {
-    this.references.push(ref);
+  addReference(ref: { id: string, name: string }, type: 'task' | 'project'): void {
+    this.references.push({ ...ref, type });
     this.dialog.closeAll();
   }
 
-  removeReference(ref: { name: string }): void {
+  removeReference(ref: ReferenceInterface): void {
     const index = this.references.indexOf(ref);
     if (index >= 0) {
       this.references.splice(index, 1);
@@ -120,17 +127,28 @@ export class DailyReportComponent implements OnInit {
 
   onSubmit(): void {
     if (this.reportForm.valid && !this.isContentEmpty) {
-      const reportData = {
+      this.isLoading = true;
+      const reportData: DailyReportInterface = {
         ...this.reportForm.value,
-        references: this.references
+        references: this.references,
+        id: this.currentReportId || '', // Use currentReportId if in edit mode
+        userId: null, // Set userId as needed
+        status: 1 // Set status as needed
       };
-      this.dailyReportService.addDailyReport(reportData).subscribe();
-      this.reportForm.reset({
-        date: this.selectedDate,
-        content: ''
-      });
-      this.references = [];
-      this.richTextEditor.resetContent();
+
+      if (this.isEditMode && this.currentReportId) {
+        this.dailyReportService.updateDailyReport(this.currentReportId, reportData).subscribe(() => {
+          this.resetForm();
+        }, () => {
+          this.isLoading = false;
+        });
+      } else {
+        this.dailyReportService.addDailyReport(reportData).subscribe(() => {
+          this.resetForm();
+        }, () => {
+          this.isLoading = false;
+        });
+      }
     }
   }
 
@@ -138,5 +156,56 @@ export class DailyReportComponent implements OnInit {
     const textOnly = content.replace(/<[^>]*>/g, '');
     this.isContentEmpty = !(textOnly?.length > 0);
     this.reportForm.patchValue({ content });
+  }
+
+  deleteReport(report: any): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '350px',
+      data: {
+        title: 'Delete Report',
+        message: `Are you sure you want to delete this report?`
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.dailyReportService.deleteDailyReport(report.id).subscribe(() => {
+          this.reports = this.reports.filter(r => r.id !== report.id);
+          this.filterReports();
+        });
+      }
+    });
+  }
+
+  editReport(report: DailyReportInterface): void {
+    this.content = report.content;
+    this.isEditMode = true;
+    this.currentReportId = report.id;
+    this.reportForm.patchValue({
+      date: report.date,
+      content: report.content
+    });
+    this.references = report.references;
+    // Switch to the Report Form tab
+    if (this.tabGroup) {
+      this.tabGroup.selectedIndex = 0;
+    }
+  }
+
+  isToday(date: Date): boolean {
+    const today = new Date();
+    return date.toDateString() === today.toDateString();
+  }
+
+  resetForm(): void {
+    this.isLoading = false;
+    this.isEditMode = false;
+    this.currentReportId = null;
+    this.reportForm.reset({
+      date: this.selectedDate,
+      content: ''
+    });
+    this.references = [];
+    this.richTextEditor.resetContent();
   }
 }
