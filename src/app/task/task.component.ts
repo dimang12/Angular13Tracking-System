@@ -1,19 +1,20 @@
-import {Component, OnInit, AfterViewInit, ViewChild, ElementRef} from '@angular/core';
+// src/app/task/task.component.ts
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { TaskService } from '../services/task.service';
 import { TaskInterface } from '../interfaces/task.interface';
 import { ProjectInterface } from '../interfaces/project.interface';
 import { BreadcrumbInterface } from "../interfaces/breadcrumb.interface";
 import { ProjectService } from '../services/project.service';
-import { MatSort} from "@angular/material/sort";
-import { MatPaginator} from "@angular/material/paginator";
-import { MatDialog} from "@angular/material/dialog";
+import { MatSort } from "@angular/material/sort";
+import { MatPaginator } from "@angular/material/paginator";
+import { MatDialog } from "@angular/material/dialog";
 import { NewTaskComponent } from './new-task/new-task.component';
 import { EditTaskComponent } from './edit-task/edit-task.component';
-import { ConfirmDialogComponent} from "../components/uis/confirm-dialog/confirm-dialog.component";
+import { ConfirmDialogComponent } from "../components/uis/confirm-dialog/confirm-dialog.component";
 import { statusParams } from '../services/params/params.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, map} from "rxjs";
+import { Observable, map } from "rxjs";
 
 @Component({
   selector: 'app-task',
@@ -22,7 +23,7 @@ import { Observable, map} from "rxjs";
 })
 export class TaskComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = [
-    'taskNumber', 'project', 'name', 'status', 'percentageCompletion',
+    'taskNumber', 'name', 'status', 'percentageCompletion',
     'numberOfDays', 'loe', 'startDate', 'endDate', 'action'
   ];
   public dataSource = new MatTableDataSource<TaskInterface>();
@@ -32,6 +33,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
   public projects: ProjectInterface[] = [];
   public selectedProject: string | null = '';
   public currentStatusFilter: number | null = null;
+  public selectedTask: TaskInterface | null = null;
 
   // create breadcrumb items
   public breadcrumbs: BreadcrumbInterface[] = [
@@ -44,7 +46,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort!: MatSort;
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild('statusFilter') statusFilter!: ElementRef;
-
 
   constructor(
     private taskService: TaskService,
@@ -62,30 +63,18 @@ export class TaskComponent implements OnInit, AfterViewInit {
     });
 
     this.applyStatusFilter(2);
-
   }
 
-  /**
-   * After view init
-   */
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   }
 
-  /**
-   * Apply search filter
-   */
   applyFilter(event: Event): void {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-  /**
-   * Apply project filter
-   * @param projectId string
-   */
   applyProjectFilter(projectId: string): void {
     this.selectedProject = projectId;
     this.currentStatusFilter = null; // Reset status filter
@@ -93,15 +82,11 @@ export class TaskComponent implements OnInit, AfterViewInit {
       return this.selectedProject ? data.project === this.selectedProject : true;
     };
     this.dataSource.filter = this.selectedProject ? this.selectedProject : '';
-    // Check if statusFilter is defined before setting its value
     if (this.statusFilter && this.statusFilter.nativeElement) {
       this.statusFilter.nativeElement.value = '';
     }
   }
 
-  /**
-   * Apply status filter
-   */
   applyStatusFilter(status: number): void {
     this.currentStatusFilter = status;
     this.dataSource.filterPredicate = (data: TaskInterface) => {
@@ -112,9 +97,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
     this.dataSource.filter = status ? status.toString() : '';
   }
 
-  /**
-   * Load tasks and order small end date to the top
-   */
   private loadTasks(): void {
     this.taskService.getTasks().subscribe((tasks) => {
       if (this.projectId) {
@@ -127,9 +109,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Load projects
-   */
   private loadProjects(): Observable<ProjectInterface[]> {
     return this.projectService.getProjects().pipe(
       map((projects) => {
@@ -139,9 +118,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
     );
   }
 
-  /**
-   * Open new task dialog
-   */
   public openNewDialog(): void {
     const dialogRef = this.dialog.open(NewTaskComponent, {
       width: '80%',
@@ -156,10 +132,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Open edit dialog
-   * @param task TaskInterface
-   */
   public openEditDialog(task: TaskInterface): void {
     const dialogRef = this.dialog.open(EditTaskComponent, {
       width: '80%',
@@ -172,10 +144,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Open delete dialog
-   * @param task TaskInterface
-   */
   openDeleteDialog(task: TaskInterface): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
@@ -185,9 +153,6 @@ export class TaskComponent implements OnInit, AfterViewInit {
       }
     });
 
-    /**
-     * After dialog closed
-     */
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.taskService.deleteTask(task.id).subscribe(() => {
@@ -198,43 +163,43 @@ export class TaskComponent implements OnInit, AfterViewInit {
     });
   }
 
-  /**
-   * Edit cell
-   * @param element TaskInterface
-   * @param column string
-   */
   editCell(element: TaskInterface, column: string): void {
     this.editingCell[element.id + column] = true;
   }
 
-  /**
-   * Is the cell being edited
-   * @param element TaskInterface
-   * @param column string
-   * @returns boolean
-   */
   isEditing(element: TaskInterface, column: string): boolean {
     return this.editingCell[element.id + column];
   }
 
-  /**
-   * Save edit cell
-   * @param element TaskInterface
-   * @param column string
-   */
   saveEdit(element: TaskInterface, column: string): void {
     this.editingCell[element.id + column] = false;
     this.taskService.updateTask(element.id, element).subscribe();
   }
 
-
   /**
-   * Get project name
-   * @param projectId string
-   * @returns string
+   * Get project name by project id
+   * @param projectId string project id
    */
   getProjectName(projectId: string): string {
     const project = this.projects.find(p => p.id.toString() === projectId);
     return project ? project.name : '';
+  }
+
+  /**
+   * Get project image
+   * @param projectId string project id
+   */
+  getProjectImage(projectId: string): string {
+    const project = this.projects.find(p => p.id.toString() === projectId);
+    return (project && project?.imageUrl !== '') ? project.imageUrl : 'assets/images/default-image-icon.png';
+  }
+
+
+  /**
+   * Select task to show detail
+   * @param task TaskInterface task object
+   */
+  selectTask(task: TaskInterface): void {
+    this.selectedTask = task;
   }
 }
