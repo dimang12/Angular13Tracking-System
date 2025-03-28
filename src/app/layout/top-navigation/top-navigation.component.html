@@ -1,36 +1,39 @@
 <nav class="navbar navbar-light border-b p-3">
-	<div class="container-fluid">
-		<a class="navbar-brand">Tracking System</a>
-		<div class="d-flex">
-			<div class="d-flex ms-2">
-				<a mat-button routerLink="/register"  routerLinkActive="active" >
-					<i class="bi-card-list f-large"></i>
-					<span class="ms-2">Register</span>
-				</a>
-				<a mat-button routerLink="/login"  routerLinkActive="active" >
-					<i class="bi-key-fill f-large"></i>
-					<span class="ms-1">Login</span>
-				</a>
-				<button mat-button [matMenuTriggerFor]="menu" aria-label="Account">
-					<i class="bi-person-fill f-large"></i>
-					<span class="ms-1">Account</span>
-				</button>
-				<mat-menu #menu="matMenu">
-					<button mat-menu-item>
-						<mat-icon>dialpad</mat-icon>
-						<span>Logout</span>
-					</button>
-					<button mat-menu-item disabled>
-						<mat-icon>voicemail</mat-icon>
-						<span>Check voice mail</span>
-					</button>
-					<button mat-menu-item>
-						<mat-icon>notifications_off</mat-icon>
-						<span>Disable alerts</span>
-					</button>
-				</mat-menu>
-
-			</div>
-		</div>
-	</div>
+  <div class="container-fluid">
+    <a class="navbar-brand">Tracking System</a>
+    <div class="d-flex">
+      <div class="d-flex ms-2">
+        <ng-container *ngIf="!(user$ | async)">
+          <a mat-button routerLink="/register" routerLinkActive="active">
+            <i class="bi-card-list f-large"></i>
+            <span class="ms-2">Register</span>
+          </a>
+          <a mat-button routerLink="/login" routerLinkActive="active">
+            <i class="bi-key-fill f-large"></i>
+            <span class="ms-1">Login</span>
+          </a>
+        </ng-container>
+        <ng-container *ngIf="user$ | async">
+          <button mat-button [matMenuTriggerFor]="menu" aria-label="Account">
+            <i class="bi-person-fill f-large"></i>
+            <span class="ms-1">Account</span>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item disabled>
+              <mat-icon>voicemail</mat-icon>
+              <span>Check voice mail</span>
+            </button>
+            <button mat-menu-item>
+              <mat-icon>notifications_off</mat-icon>
+              <span>Disable alerts</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+              <mat-icon>dialpad</mat-icon>
+              <span>Logout</span>
+            </button>
+          </mat-menu>
+        </ng-container>
+      </div>
+    </div>
+  </div>
 </nav>
