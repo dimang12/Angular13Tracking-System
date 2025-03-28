@@ -9,25 +9,26 @@
 
 				</div>
 			</section>
-			<mat-form-field class="w-100" appearance="fill">
+			<mat-form-field class="w-100" appearance="outline">
 				<mat-label>Email</mat-label>
 				<input type="email" name="registerEmail"  placeholder="Ex. pat@example.com"
 				       matInput ngModel email required
 				>
 			</mat-form-field>
-			<mat-form-field class="w-100">
+			<mat-form-field class="w-100" appearance="outline">
 				<input type="password" name="registerPassword"
 				       matInput ngModel required placeholder="Password"
 				/>
 			</mat-form-field>
-			<mat-form-field class="w-100">
+			<mat-form-field class="w-100" appearance="outline">
 				<input type="password" name="conformRegisterPassword" placeholder="Confirm password"
 				       matInput ngModel required
 				/>
 			</mat-form-field>
 
-			<div class="w-100 d-flex flex-row-reverse pt-2 pb-2">
-				<button mat-flat-button color="primary" class="d-flex justify-content-end">Register</button>
+			<div class="w-100 flex justify-end items-center space-x-4 pt-2 pb-2">
+        <a routerLink="/login" class="">Already have an account?</a>
+        <app-button-ui type="submit"> Register </app-button-ui>
 			</div>
 		</form>
 	</div>

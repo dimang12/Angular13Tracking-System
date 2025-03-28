@@ -6,12 +6,12 @@
             Login
           </h2>
         </section>
-        <mat-form-field class="w-100" appearance="fill">
+        <mat-form-field class="w-100" appearance="outline">
           <mat-label>Email</mat-label>
           <input type="email" name="loginEmail" placeholder="Ex. pat@example.com"
                  matInput ngModel email required>
         </mat-form-field>
-        <mat-form-field class="w-100">
+        <mat-form-field class="w-100" appearance="outline">
           <input type="password" name="loginPassword"
                  matInput ngModel required>
         </mat-form-field>
@@ -28,6 +28,8 @@
         </div>
         <div class="text-center">
           <a href="" class="">Forgot your password?</a>
+          <span class="text-sm px-2">or</span>
+          <a routerLink="/register" class="">Create a new account</a>
         </div>
       </form>
     </div>
