@@ -11,6 +11,7 @@ import { ConfirmDialogComponent } from '../components/uis/confirm-dialog/confirm
 import { ProjectService } from "../services/project.service";
 import { ProjectInterface } from "../interfaces/project.interface";
 import { BreadcrumbInterface } from "../interfaces/breadcrumb.interface";
+import { SelectionModel } from "@angular/cdk/collections";
 
 @Component({
   selector: 'app-project',
@@ -18,8 +19,9 @@ import { BreadcrumbInterface } from "../interfaces/breadcrumb.interface";
   styleUrls: ['./project.component.css'],
 })
 export class ProjectComponent implements AfterViewInit, OnInit {
-  public displayedColumns: string[] = ['imageUrl', 'name', 'status', 'startDate', 'endDate', 'action'];
+  public displayedColumns: string[] = ['select', 'imageUrl', 'name', 'status', 'startDate', 'endDate', 'action'];
   public dataSource = new MatTableDataSource<ProjectInterface>();
+  public selection = new SelectionModel<ProjectInterface>(true, []);
 
   // create breadcrumb items
   public breadcrumbs: BreadcrumbInterface[] = [
@@ -100,5 +102,27 @@ export class ProjectComponent implements AfterViewInit, OnInit {
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
+  }
+
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: ProjectInterface): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
   }
 }
