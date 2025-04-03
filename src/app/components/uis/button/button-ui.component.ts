@@ -1,7 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Inject } from '@angular/core';
 import { UiComponent } from '../ui.component';
-import { colorParams } from 'src/app/services/params/color.params.service';
-import {sizeParams} from "../../../services/params/params.service";
 
 @Component({
   selector: 'app-button-ui',
@@ -9,13 +7,16 @@ import {sizeParams} from "../../../services/params/params.service";
   styleUrls: ['./button-ui.component.css']
 })
 export default class ButtonUiComponent extends UiComponent {
-  @Input() color: string = colorParams.primary;
+  @Input() color: string = 'primary';
   @Input() disabled: boolean = false;
-  @Input() size: string = sizeParams.small;
+  @Input() size: string = 'small';
   @Input() type: string = 'button';
 
-  constructor() {
-    super();
+  constructor(
+    @Inject('COLOR_PARAMS') colorParams: any,
+    @Inject('SIZE_PARAMS') sizeParams: any
+  ) {
+    super(colorParams, sizeParams);
   }
 
   override ngOnInit(): void {
@@ -24,5 +25,4 @@ export default class ButtonUiComponent extends UiComponent {
     // set size
     this.size = this.getButtonSize(this.size);
   }
-
 }

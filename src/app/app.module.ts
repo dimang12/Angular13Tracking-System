@@ -56,8 +56,7 @@ import { BreadcrumbComponent } from './layout/breadcrumb/breadcrumb.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
 import { BlanketComponent } from './components/uis/blanket/blanket.component';
 import { NewProjectComponent } from './project/new-project/new-project.component';
-import ButtonUiComponent from './components/uis/button/button-ui.component';
-import { UiComponent } from './components/uis/ui.component';
+import { UiModule } from './components/uis/ui.module';
 import { EditProjectComponent } from './project/edit-project/edit-project.component';
 import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-dialog.component';
 import { NewTaskComponent } from './task/new-task/new-task.component';
@@ -66,7 +65,7 @@ import { RichTextEditorComponent } from './components/uis/rich-text-editor/rich-
 import { DailyReportComponent } from  './daily-report/daily-report.component';
 import { GroupProjectComponent } from "./project/project-group/group-project.component";
 import { AddGroupProjectDialogComponent } from "./project/add-group-project-dialog/add-group-project-dialog.component";
-import { EditProjectGroupDialogComponent } from "./project/edit-project-group-dialog/edit-project-group-dialog.component";
+import { EditGroupProjectDialogModule } from "./project/edit-group-project-dialog/edit-group-project-dialog.module";
 
 @NgModule({
   declarations: [
@@ -85,8 +84,6 @@ import { EditProjectGroupDialogComponent } from "./project/edit-project-group-di
     ProjectDetailComponent,
     BlanketComponent,
     NewProjectComponent,
-    ButtonUiComponent,
-    UiComponent,
     EditProjectComponent,
     ConfirmDialogComponent,
     NewTaskComponent,
@@ -94,8 +91,7 @@ import { EditProjectGroupDialogComponent } from "./project/edit-project-group-di
     RichTextEditorComponent,
     DailyReportComponent,
     GroupProjectComponent,
-    AddGroupProjectDialogComponent,
-    EditProjectGroupDialogComponent
+    AddGroupProjectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -110,6 +106,7 @@ import { EditProjectGroupDialogComponent } from "./project/edit-project-group-di
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,
+    EditGroupProjectDialogModule,
 
     MatIconModule,
     MatMenuModule,
@@ -134,7 +131,8 @@ import { EditProjectGroupDialogComponent } from "./project/edit-project-group-di
     MatTabsModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    UiModule
   ],
   providers: [],
   bootstrap: [AppComponent]

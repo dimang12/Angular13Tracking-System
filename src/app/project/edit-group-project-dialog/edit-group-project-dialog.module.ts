@@ -6,11 +6,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { EditProjectGroupDialogComponent } from './edit-project-group-dialog.component';
+import { EditGroupProjectDialogComponent } from './edit-group-project-dialog.component';
+import { UiModule } from '../../components/uis/ui.module';
+import { colorParams } from '../../services/params/color.params.service';
+import { sizeParams } from '../../services/params/params.service';
 
 @NgModule({
   declarations: [
-    EditProjectGroupDialogComponent
+    EditGroupProjectDialogComponent
   ],
   imports: [
     CommonModule,
@@ -19,10 +22,15 @@ import { EditProjectGroupDialogComponent } from './edit-project-group-dialog.com
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    UiModule
   ],
   exports: [
-    EditProjectGroupDialogComponent
+    EditGroupProjectDialogComponent
+  ],
+  providers: [
+    { provide: 'colorParams', useValue: colorParams },
+    { provide: 'sizeParams', useValue: sizeParams }
   ]
 })
-export class EditProjectGroupDialogModule { } 
+export class EditGroupProjectDialogModule { } 

@@ -4,7 +4,7 @@ import { GroupProjectService } from '../../services/group-project.service';
 import { GroupProjectInterface } from '../../interfaces/group.project.interface';
 import { ConfirmDialogComponent } from '../../components/uis/confirm-dialog/confirm-dialog.component'
 import { AddGroupProjectDialogComponent } from "../add-group-project-dialog/add-group-project-dialog.component";
-import { EditProjectGroupDialogComponent } from "../edit-project-group-dialog/edit-project-group-dialog.component";
+import { EditGroupProjectDialogComponent } from "../edit-group-project-dialog/edit-group-project-dialog.component";
 
 @Component({
   selector: 'app-group-project',
@@ -44,7 +44,7 @@ export class GroupProjectComponent implements OnInit {
   }
 
   editGroupProject(group: GroupProjectInterface): void {
-    const dialogRef = this.dialog.open(EditProjectGroupDialogComponent, {
+    const dialogRef = this.dialog.open(EditGroupProjectDialogComponent, {
       width: '60%',
       height: '80%',
       data: {

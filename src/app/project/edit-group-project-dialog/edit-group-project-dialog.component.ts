@@ -12,16 +12,16 @@ export interface EditGroupProjectDialogData {
 }
 
 @Component({
-  selector: 'app-edit-project-group-dialog',
-  templateUrl: './edit-project-group-dialog.component.html',
-  styleUrls: ['./edit-project-group-dialog.component.css']
+  selector: 'app-edit-group-project-dialog',
+  templateUrl: './edit-group-project-dialog.component.html',
+  styleUrls: ['./edit-group-project-dialog.component.css']
 })
-export class EditProjectGroupDialogComponent {
+export class EditGroupProjectDialogComponent {
   public groupProjectForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<EditProjectGroupDialogComponent>,
+    public dialogRef: MatDialogRef<EditGroupProjectDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: EditGroupProjectDialogData
   ) {
     this.groupProjectForm = this.fb.group({
