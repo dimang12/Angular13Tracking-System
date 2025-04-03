@@ -1,110 +1,123 @@
 <div class="flex-col gap-y-2 m-0 bg-purple-50 p-4">
   <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   <app-blanket>
-    <section class="bl-header p-6 pb-2 mb-2 flex justify-content-between">
-      <h2 class="flex-grow-0">
-        Project
-      </h2>
-      <app-button-ui size="small" (click)="openDialog()">
-        New Project
-      </app-button-ui>
-    </section>
-    <div class="flex-grow-1 p-6">
-      <table mat-table
-             [dataSource]="dataSource"
-             matSort (matSortChange)="announceSortChange($event)"
-             class="w-100">
 
-        <!-- Checkbox Column -->
-        <ng-container matColumnDef="select">
-          <th mat-header-cell *matHeaderCellDef>
-            <mat-checkbox
-              (change)="$event ? masterToggle() : null"
-              [checked]="isAllSelected()"
-              [indeterminate]="selection.hasValue() && !isAllSelected()"
-              aria-label="Select all rows">
-            </mat-checkbox>
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <mat-checkbox
-              (click)="$event.stopPropagation()"
-              (change)="$event ? selection.toggle(row) : null"
-              [checked]="selection.isSelected(row)"
-              aria-label="Select row {{row.name}}">
-            </mat-checkbox>
-          </td>
-        </ng-container>
 
-        <!-- Image Column -->
-        <ng-container matColumnDef="imageUrl">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Image">
-            Image
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <img [src]="element.imageUrl ? element.imageUrl : 'assets/images/default-image-icon.png'" alt="{{element.name}}" class="w-16 h-16 m-2 object-cover rounded-full">
-          </td>
-        </ng-container>
+    <mat-tab-group>
+      <mat-tab label="Projects">
+        <section class="bl-header p-6 pb-2 mb-2 flex justify-content-between">
+          <h2 class="flex-grow-0">
+            Project
+          </h2>
+          <app-button-ui size="small" (click)="openDialog()">
+            New Project
+          </app-button-ui>
+        </section>
+        <div class="flex-grow-1 p-6">
+          <table mat-table
+                 [dataSource]="dataSource"
+                 matSort (matSortChange)="announceSortChange($event)"
+                 class="w-100">
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
-            Project Name
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <a [routerLink]="['/task', element.id]" class="text-blue-500 hover:underline">
-              {{element.name}}
-            </a>
-          </td>
-        </ng-container>
+            <!-- Checkbox Column -->
+            <ng-container matColumnDef="select">
+              <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox
+                  (change)="$event ? masterToggle() : null"
+                  [checked]="isAllSelected()"
+                  [indeterminate]="selection.hasValue() && !isAllSelected()"
+                  aria-label="Select all rows">
+                </mat-checkbox>
+              </th>
+              <td mat-cell *matCellDef="let row">
+                <mat-checkbox
+                  (click)="$event.stopPropagation()"
+                  (change)="$event ? selection.toggle(row) : null"
+                  [checked]="selection.isSelected(row)"
+                  aria-label="Select row {{row.name}}">
+                </mat-checkbox>
+              </td>
+            </ng-container>
 
-        <!-- Status Column -->
-        <ng-container matColumnDef="status">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
-            Status
-          </th>
-          <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-        </ng-container>
+            <!-- Image Column -->
+            <ng-container matColumnDef="imageUrl">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by Image">
+                Image
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <img [src]="element.imageUrl ? element.imageUrl : 'assets/images/default-image-icon.png'" alt="{{element.name}}" class="w-16 h-16 m-2 object-cover rounded-full">
+              </td>
+            </ng-container>
 
-        <!-- Start Date Column -->
-        <ng-container matColumnDef="startDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by start date">
-            Start Date
-          </th>
-          <td mat-cell *matCellDef="let element"> {{element.startDate | date}} </td>
-        </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name">
+                Project Name
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <a [routerLink]="['/task', element.id]" class="text-blue-500 hover:underline">
+                  {{element.name}}
+                </a>
+              </td>
+            </ng-container>
 
-        <!-- End Date Column -->
-        <ng-container matColumnDef="endDate">
-          <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by end date">
-            End Date
-          </th>
-          <td mat-cell *matCellDef="let element"> {{element.endDate | date}} </td>
-        </ng-container>
+            <!-- Status Column -->
+            <ng-container matColumnDef="status">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by status">
+                Status
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <span [ngClass]="getStatusClass(element.status)" class="px-2 py-1 rounded-md text-sm font-medium">
+                  {{element.status}}
+                </span>
+              </td>
+            </ng-container>
 
-        <!-- Action Column -->
-        <ng-container matColumnDef="action">
-          <th mat-header-cell width="100" *matHeaderCellDef>
-            Action
-          </th>
-          <td mat-cell *matCellDef="let element">
-            <div class="flex space-x-1" *ngIf="selection.isSelected(element)">
-              <button mat-icon-button class="small-icon-button" (click)="openEditDialog(element)">
-                <mat-icon>edit</mat-icon>
-              </button>
-              <button mat-icon-button class="small-icon-button" (click)="openDeleteDialog(element)">
-                <mat-icon>delete</mat-icon>
-              </button>
-            </div>
-          </td>
-        </ng-container>
+            <!-- Start Date Column -->
+            <ng-container matColumnDef="startDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by start date">
+                Start Date
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.startDate | date}} </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-      </table>
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                     showFirstLastButtons
-                     aria-label="Select page of projects">
-      </mat-paginator>
-    </div>
+            <!-- End Date Column -->
+            <ng-container matColumnDef="endDate">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by end date">
+                End Date
+              </th>
+              <td mat-cell *matCellDef="let element"> {{element.endDate | date}} </td>
+            </ng-container>
+
+            <!-- Action Column -->
+            <ng-container matColumnDef="action">
+              <th mat-header-cell width="100" *matHeaderCellDef>
+                Action
+              </th>
+              <td mat-cell *matCellDef="let element">
+                <div class="flex space-x-1" *ngIf="selection.isSelected(element)">
+                  <button mat-icon-button class="small-icon-button" (click)="openEditDialog(element)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button class="small-icon-button" (click)="openDeleteDialog(element)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+          </table>
+          <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                         showFirstLastButtons
+                         aria-label="Select page of projects">
+          </mat-paginator>
+        </div>
+      </mat-tab>
+      <mat-tab label="Project Group">
+       <app-group-project></app-group-project>
+      </mat-tab>
+    </mat-tab-group>
   </app-blanket>
 </div>

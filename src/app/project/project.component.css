@@ -1,0 +1,31 @@
+.status-active {
+  background-color: #f3e8ff;
+  color: #7e22ce;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.status-completed {
+  background-color: #dcfce7;
+  color: #15803d;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.status-on-hold {
+  background-color: #fff7ed;
+  color: #c2410c;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}
+
+.status-cancelled {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+}

@@ -125,4 +125,19 @@ export class ProjectComponent implements AfterViewInit, OnInit {
     }
     return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.name}`;
   }
+
+  getStatusClass(status: string): string {
+    switch (status) {
+      case 'Active':
+        return 'bg-purple-100 text-purple-800';
+      case 'Completed':
+        return 'bg-green-100 text-green-800';
+      case 'On Hold':
+        return 'bg-orange-100 text-orange-800';
+      case 'Cancelled':
+        return 'bg-red-100 text-red-800';
+      default:
+        return '';
+    }
+  }
 }

@@ -64,6 +64,9 @@ import { NewTaskComponent } from './task/new-task/new-task.component';
 import { EditTaskComponent } from './task/edit-task/edit-task.component';
 import { RichTextEditorComponent } from './components/uis/rich-text-editor/rich-text-editor.component';
 import { DailyReportComponent } from  './daily-report/daily-report.component';
+import { GroupProjectComponent } from "./project/project-group/group-project.component";
+import { AddGroupProjectDialogComponent } from "./project/add-group-project-dialog/add-group-project-dialog.component";
+import { EditProjectGroupDialogComponent } from "./project/edit-project-group-dialog/edit-project-group-dialog.component";
 
 @NgModule({
   declarations: [
@@ -89,7 +92,10 @@ import { DailyReportComponent } from  './daily-report/daily-report.component';
     NewTaskComponent,
     EditTaskComponent,
     RichTextEditorComponent,
-    DailyReportComponent
+    DailyReportComponent,
+    GroupProjectComponent,
+    AddGroupProjectDialogComponent,
+    EditProjectGroupDialogComponent
   ],
   imports: [
     BrowserModule,
