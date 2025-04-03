@@ -3,10 +3,74 @@
 }
 
 .action-buttons {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
   display: flex;
   gap: 8px;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 4px;
+  background-color: white;
+}
+
+.mat-mdc-progress-bar {
+  height: 8px !important;
+  border-radius: 4px;
+}
+
+.mat-mdc-progress-bar-buffer {
+  background-color: #e2e8f0;
+}
+
+.mat-mdc-progress-bar-fill::after {
+  background-color: currentColor;
+}
+
+.mat-mdc-progress-bar.mat-accent .mdc-linear-progress__bar-inner {
+  border-color: #10b981;
+}
+
+.mat-mdc-progress-bar.mat-primary .mdc-linear-progress__bar-inner {
+  border-color: #3b82f6;
+}
+
+.mat-mdc-progress-bar.mat-warn .mdc-linear-progress__bar-inner {
+  border-color: #ef4444;
+}
+
+.mat-mdc-row:hover {
+  background-color: #f8fafc;
+}
+
+.mat-mdc-row.selected {
+  background-color: #f1f5f9;
+}
+
+.mat-mdc-header-cell {
+  font-weight: 600;
+  color: #475569;
+}
+
+.mat-mdc-cell {
+  color: #1e293b;
+}
+
+.mat-mdc-paginator {
+  background-color: transparent;
+}
+
+.mat-mdc-paginator-page-size-label {
+  color: #64748b;
+}
+
+.mat-mdc-paginator-range-label {
+  color: #64748b;
+}
+
+.mat-mdc-paginator-navigation-next,
+.mat-mdc-paginator-navigation-previous {
+  color: #3b82f6;
+}
+
+.mat-mdc-paginator-navigation-next:disabled,
+.mat-mdc-paginator-navigation-previous:disabled {
+  color: #94a3b8;
 }

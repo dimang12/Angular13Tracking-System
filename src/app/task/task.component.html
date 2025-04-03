@@ -64,7 +64,7 @@
         <!-- Status Column -->
         <ng-container matColumnDef="status">
           <th class="w-28" mat-header-cell mat-sort-header *matHeaderCellDef> Status </th>
-          <td class="pe-2" [ngClass]="element.status | statusColor" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'status')" >
+          <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'status')" >
             <mat-select
               class="p-1 border rounded-md"
               *ngIf="isEditing(element, 'status')"
@@ -77,20 +77,40 @@
               <mat-option value=4>On Hold</mat-option>
               <mat-option value=5>Cancelled</mat-option>
             </mat-select>
-            <span *ngIf="!isEditing(element, 'status')">{{element.status | status}}</span>
+            <span *ngIf="!isEditing(element, 'status')" 
+                  class="px-2 py-1 rounded-md inline-block"
+                  [ngClass]="element.status | statusColor">
+              {{element.status | status}}
+            </span>
           </td>
         </ng-container>
 
-        <!-- Start Date Column -->
-        <ng-container matColumnDef="startDate">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef> Start Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.startDate | date:'MMM d'}} </td>
+        <!-- Progress Column -->
+        <ng-container matColumnDef="progress">
+          <th class="w-32" mat-header-cell mat-sort-header *matHeaderCellDef> Progress </th>
+          <td class="pe-2" mat-cell *matCellDef="let element">
+            <div class="flex items-center space-x-2">
+              <mat-progress-bar
+                mode="determinate"
+                [value]="element.percentageCompletion"
+                [color]="getProgressColor(element.percentageCompletion)"
+                class="flex-grow-1">
+              </mat-progress-bar>
+              <span class="text-sm text-gray-600">{{element.percentageCompletion}}%</span>
+            </div>
+          </td>
         </ng-container>
 
-        <!-- End Date Column -->
-        <ng-container matColumnDef="endDate">
-          <th mat-header-cell mat-sort-header *matHeaderCellDef> End Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.endDate | date:'MMM d'}} </td>
+        <!-- Dates Column -->
+        <ng-container matColumnDef="dates">
+          <th class="px-4" mat-header-cell mat-sort-header *matHeaderCellDef> Dates </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="flex items-center space-x-2 px-4">
+              <span>{{element.startDate | date:'MMM d'}}</span>
+              <span class="text-gray-400">-</span>
+              <span>{{element.endDate | date:'MMM d'}}</span>
+            </div>
+          </td>
         </ng-container>
 
         <!-- Number of Days Column -->
@@ -99,35 +119,21 @@
           <td class="text-gray-300" mat-cell *matCellDef="let element"> {{element.numberOfDays}} </td>
         </ng-container>
 
-        <!-- Level Of Effort (loe) Column -->
+        <!-- LOE Column -->
         <ng-container matColumnDef="loe">
-          <th class="w-14" mat-header-cell mat-sort-header *matHeaderCellDef> LOE </th>
-          <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'loe')">
-            <input class="p-1 border rounded-md w-12" *ngIf="isEditing(element, 'loe')" [(ngModel)]="element.loe" (blur)="saveEdit(element, 'loe')" />
-            <span *ngIf="!isEditing(element, 'loe')">{{element.loe}}</span>
-          </td>
-        </ng-container>
-
-        <!-- Percentage of Task Column -->
-        <ng-container matColumnDef="percentageCompletion">
-          <th class="w-16" mat-header-cell mat-sort-header *matHeaderCellDef> Percentage </th>
-          <td class="pe-2" mat-cell *matCellDef="let element" (dblclick)="editCell(element, 'percentageCompletion')">
-            <input class="p-1 border rounded-md w-14" *ngIf="isEditing(element, 'percentageCompletion')" [(ngModel)]="element.percentageCompletion" (blur)="saveEdit(element, 'percentageCompletion')" />
-            <span *ngIf="!isEditing(element, 'percentageCompletion')">{{element.percentageCompletion | percentage}}</span>
-          </td>
+          <th mat-header-cell mat-sort-header *matHeaderCellDef> LOE </th>
+          <td mat-cell *matCellDef="let element"> {{element.loe}} </td>
         </ng-container>
 
         <!-- Action Column -->
         <ng-container matColumnDef="action">
-          <th class="text-center" mat-header-cell *matHeaderCellDef>
-            Action
-          </th>
-          <td mat-cell *matCellDef="let element" class="relative">
-            <div class="flex justify-center action-buttons" *ngIf="selectedTask === element">
-              <button mat-icon-button class="small-icon-button" (click)="openEditDialog(element)">
+          <th class="w-32" mat-header-cell *matHeaderCellDef> Action </th>
+          <td mat-cell *matCellDef="let element">
+            <div class="action-buttons" *ngIf="selectedTask?.id === element.id">
+              <button mat-icon-button color="primary" (click)="openEditDialog(element)">
                 <mat-icon>edit</mat-icon>
               </button>
-              <button mat-icon-button class="small-icon-button" (click)="openDeleteDialog(element)">
+              <button mat-icon-button color="warn" (click)="openDeleteDialog(element)">
                 <mat-icon>delete</mat-icon>
               </button>
             </div>
@@ -135,15 +141,10 @@
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectTask(row)" [class.selected]="selectedTask === row"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectTask(row)"></tr>
       </table>
 
-      <mat-paginator [pageSizeOptions]="[5, 10, 20]"
-                     showFirstLastButtons
-                     [pageSize]="pageSize"
-                     aria-label="Select page of projects">
-      </mat-paginator>
-
+      <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of tasks"></mat-paginator>
     </div>
   </app-blanket>
 </div>
