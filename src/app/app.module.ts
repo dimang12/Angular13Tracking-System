@@ -56,14 +56,16 @@ import { BreadcrumbComponent } from './layout/breadcrumb/breadcrumb.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
 import { BlanketComponent } from './components/uis/blanket/blanket.component';
 import { NewProjectComponent } from './project/new-project/new-project.component';
-import ButtonUiComponent from './components/uis/button/button-ui.component';
-import { UiComponent } from './components/uis/ui.component';
+import { UiModule } from './components/uis/ui.module';
 import { EditProjectComponent } from './project/edit-project/edit-project.component';
 import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-dialog.component';
 import { NewTaskComponent } from './task/new-task/new-task.component';
 import { EditTaskComponent } from './task/edit-task/edit-task.component';
 import { RichTextEditorComponent } from './components/uis/rich-text-editor/rich-text-editor.component';
 import { DailyReportComponent } from  './daily-report/daily-report.component';
+import { GroupProjectComponent } from "./project/project-group/group-project.component";
+import { AddGroupProjectDialogComponent } from "./project/add-group-project-dialog/add-group-project-dialog.component";
+import { EditGroupProjectDialogModule } from "./project/edit-group-project-dialog/edit-group-project-dialog.module";
 
 @NgModule({
   declarations: [
@@ -82,14 +84,14 @@ import { DailyReportComponent } from  './daily-report/daily-report.component';
     ProjectDetailComponent,
     BlanketComponent,
     NewProjectComponent,
-    ButtonUiComponent,
-    UiComponent,
     EditProjectComponent,
     ConfirmDialogComponent,
     NewTaskComponent,
     EditTaskComponent,
     RichTextEditorComponent,
-    DailyReportComponent
+    DailyReportComponent,
+    GroupProjectComponent,
+    AddGroupProjectDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -104,6 +106,7 @@ import { DailyReportComponent } from  './daily-report/daily-report.component';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,
+    EditGroupProjectDialogModule,
 
     MatIconModule,
     MatMenuModule,
@@ -128,7 +131,8 @@ import { DailyReportComponent } from  './daily-report/daily-report.component';
     MatTabsModule,
     MatCardModule,
     MatSlideToggleModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    UiModule
   ],
   providers: [],
   bootstrap: [AppComponent]

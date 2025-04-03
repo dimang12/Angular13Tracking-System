@@ -4,6 +4,8 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
+import { GroupProjectService } from '../../services/group-project.service';
+import { GroupProjectInterface } from '../../interfaces/group.project.interface';
 
 @Component({
   selector: 'app-new-project',
@@ -11,21 +13,26 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./new-project.component.css']
 })
 export class NewProjectComponent implements OnInit {
-  parentProjects = [
-    { id: 1, name: 'Parent Project 1' },
-    { id: 2, name: 'Parent Project 2' },
-    { id: 3, name: 'Parent Project 3' }
-  ];
+  groupProjects: GroupProjectInterface[] = [];
   selectedFile: File | null = null;
   previewImage: string | ArrayBuffer | null = null;
 
   constructor(
     public dialogRef: MatDialogRef<NewProjectComponent>,
     private firestore: AngularFirestore,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private groupProjectService: GroupProjectService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.loadGroupProjects();
+  }
+
+  loadGroupProjects(): void {
+    this.groupProjectService.getProjectGroups().subscribe(groups => {
+      this.groupProjects = groups;
+    });
+  }
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
@@ -46,7 +53,7 @@ export class NewProjectComponent implements OnInit {
       const formData = {
         name: form.value.name,
         status: form.value.status,
-        parentProject: form.value.parentProject,
+        groupProject: form.value.groupProject,
         detail: form.value.detail,
         startDate: form.value.startDate,
         endDate: form.value.endDate,

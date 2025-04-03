@@ -4,6 +4,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AngularFirestore } from "@angular/fire/compat/firestore";
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { finalize } from 'rxjs/operators';
+import { GroupProjectService } from '../../services/group-project.service';
+import { GroupProjectInterface } from '../../interfaces/group.project.interface';
 
 @Component({
   selector: 'app-edit-project',
@@ -11,11 +13,7 @@ import { finalize } from 'rxjs/operators';
   styleUrls: ['./edit-project.component.css']
 })
 export class EditProjectComponent implements OnInit {
-  parentProjects = [
-    { id: 1, name: 'Parent Project 1' },
-    { id: 2, name: 'Parent Project 2' },
-    { id: 3, name: 'Parent Project 3' }
-  ];
+  groupProjects: GroupProjectInterface[] = [];
   selectedFile: File | null = null;
   previewImage: string | ArrayBuffer | null = null;
   projectData: any;
@@ -24,15 +22,23 @@ export class EditProjectComponent implements OnInit {
     public dialogRef: MatDialogRef<EditProjectComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,
     private firestore: AngularFirestore,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private groupProjectService: GroupProjectService
   ) {
     this.projectData = { ...data };
   }
 
   ngOnInit(): void {
+    this.loadGroupProjects();
     if (this.projectData.imageUrl) {
       this.previewImage = this.projectData.imageUrl;
     }
+  }
+
+  loadGroupProjects(): void {
+    this.groupProjectService.getProjectGroups().subscribe(groups => {
+      this.groupProjects = groups;
+    });
   }
 
   onFileSelected(event: any) {
@@ -54,7 +60,7 @@ export class EditProjectComponent implements OnInit {
       const formData = {
         name: form.value.name,
         status: form.value.status,
-        parentProject: form.value.parentProject,
+        groupProject: form.value.groupProject,
         detail: form.value.detail,
         startDate: form.value.startDate,
         endDate: form.value.endDate,

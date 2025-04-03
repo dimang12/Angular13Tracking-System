@@ -1,0 +1,42 @@
+<div class="project-group p-6">
+  <h2>Groups of Project</h2>
+  <div class="flex justify-end">
+    <app-button-ui (click)="addGroupProject()">Add Project Group</app-button-ui>
+  </div>
+  <table mat-table [dataSource]="groupsProject" class="w-100">
+    <!-- Columns definitions -->
+    <ng-container matColumnDef="groupName">
+      <th mat-header-cell *matHeaderCellDef> Name </th>
+      <td mat-cell *matCellDef="let group"> {{group.groupName}} </td>
+    </ng-container>
+    <ng-container matColumnDef="detail">
+      <th mat-header-cell *matHeaderCellDef> Detail </th>
+      <td mat-cell *matCellDef="let group"> {{group.detail}} </td>
+    </ng-container>
+    <ng-container matColumnDef="numberOfProjects">
+      <th mat-header-cell *matHeaderCellDef> # Projects </th>
+      <td mat-cell *matCellDef="let group"> {{group.numberOfProjects}} </td>
+    </ng-container>
+    <ng-container matColumnDef="status">
+      <th mat-header-cell *matHeaderCellDef> Status </th>
+      <td mat-cell *matCellDef="let group">
+        <span [ngClass]="{'text-green-500': group.status, 'text-primary': !group.status}">
+          {{ group.status ? 'active' : 'close' }}
+        </span>
+      </td>
+    </ng-container>
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let group">
+        <button mat-icon-button (click)="editGroupProject(group)">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button (click)="deleteProjectGroup(group.id)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

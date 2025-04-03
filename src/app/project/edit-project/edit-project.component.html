@@ -8,9 +8,9 @@
       </mat-form-field>
 
       <mat-form-field class="w-100" appearance="outline">
-        <mat-label>Parent Project</mat-label>
-        <mat-select name="parentProject" [(ngModel)]="projectData.parentProject">
-          <mat-option *ngFor="let project of parentProjects" [value]="project.id">{{ project.name }}</mat-option>
+        <mat-label>Group Project</mat-label>
+        <mat-select name="groupProject" [(ngModel)]="projectData.groupProject" required>
+          <mat-option *ngFor="let group of groupProjects" [value]="group.id">{{ group.groupName }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>

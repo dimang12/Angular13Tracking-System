@@ -1,0 +1,32 @@
+<div class="h-full flex flex-col">
+  <h1 mat-dialog-title>Edit Project Group</h1>
+  <div mat-dialog-content class="flex-grow">
+    <form [formGroup]="groupProjectForm" (ngSubmit)="onSubmit()" class="h-full flex flex-col gap-y-2">
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Group Name</mat-label>
+        <input matInput formControlName="groupName" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Parent Project</mat-label>
+        <input matInput formControlName="parentProject" required>
+      </mat-form-field>
+      <mat-slide-toggle formControlName="status">Status</mat-slide-toggle>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Detail</mat-label>
+        <textarea matInput formControlName="detail"></textarea>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Number of Projects</mat-label>
+        <input matInput type="number" formControlName="numberOfProjects" required>
+      </mat-form-field>
+      <mat-form-field appearance="outline" class="w-100">
+        <mat-label>Image URL</mat-label>
+        <input matInput formControlName="imageUrl">
+      </mat-form-field>
+      <div class="flex-grow flex items-end justify-end space-x-4">
+        <app-button-ui size="small" color="light" (click)="onCancel()">Cancel</app-button-ui>
+        <app-button-ui size="medium" type="submit" [disabled]="!groupProjectForm.valid">Update Project</app-button-ui>
+      </div>
+    </form>
+  </div>
+</div> 
