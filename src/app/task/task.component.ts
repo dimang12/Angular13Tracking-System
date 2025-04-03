@@ -23,8 +23,14 @@ import { Observable, map } from "rxjs";
 })
 export class TaskComponent implements OnInit, AfterViewInit {
   public displayedColumns: string[] = [
-    'taskNumber', 'name', 'status', 'percentageCompletion',
-    'numberOfDays', 'loe', 'startDate', 'endDate', 'action'
+    'taskNumber',
+    'name',
+    'status',
+    'progress',
+    'dates',
+    'numberOfDays',
+    'loe',
+    'action'
   ];
   public dataSource = new MatTableDataSource<TaskInterface>();
   public statusParams = statusParams;
@@ -111,7 +117,7 @@ export class TaskComponent implements OnInit, AfterViewInit {
 
   private loadProjects(): Observable<ProjectInterface[]> {
     return this.projectService.getProjects().pipe(
-      map((projects) => {
+      map(projects => {
         this.projects = projects;
         return projects;
       })
@@ -127,8 +133,10 @@ export class TaskComponent implements OnInit, AfterViewInit {
       }
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadTasks();
+      }
     });
   }
 
@@ -139,8 +147,10 @@ export class TaskComponent implements OnInit, AfterViewInit {
       data: task
     });
 
-    dialogRef.afterClosed().subscribe(() => {
-      console.log('The dialog was closed');
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        this.loadTasks();
+      }
     });
   }
 
@@ -194,6 +204,20 @@ export class TaskComponent implements OnInit, AfterViewInit {
     return (project && project?.imageUrl !== '') ? project.imageUrl : 'assets/images/default-image-icon.png';
   }
 
+  /**
+   * Get progress bar color based on completion percentage
+   * @param percentage number completion percentage
+   * @returns string color name for the progress bar
+   */
+  getProgressColor(percentage: number): string {
+    if (percentage >= 100) {
+      return 'accent'; // Green for completed tasks
+    } else if (percentage >= 50) {
+      return 'primary'; // Blue for tasks in progress
+    } else {
+      return 'warn'; // Red for tasks that need attention
+    }
+  }
 
   /**
    * Select task to show detail

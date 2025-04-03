@@ -9,11 +9,11 @@ export const sizeParams = {
 
 // generate array of task status parameters
 export const statusParams = [
-  { value: 1, label: 'Not Start', color: 'text-gray-600' },
-  { value: 2, label: 'On Going', color: 'text-purple-600' },
-  { value: 3, label: 'Completed', color: 'text-green-600' },
-  { value: 4, label: 'On Hold', color: 'text-yellow-600' },
-  { value: 5, label: 'Cancelled', color: 'text-red-600' },
+  { value: 1, label: 'Not Start', color: 'text-gray-600 bg-yellow-100' },
+  { value: 2, label: 'On Going', color: 'text-purple-600 bg-purple-100' },
+  { value: 3, label: 'Completed', color: 'text-green-600 bg-green-100' },
+  { value: 4, label: 'On Hold', color: 'text-yellow-600 bg-yellow-100' },
+  { value: 5, label: 'Cancelled', color: 'text-red-600 bg-red-100' },
 ]
 
 // generate array of 10 percentage values
