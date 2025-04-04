@@ -1,0 +1,25 @@
+<nav class="bg-white border-r border-gray-200 h-full w-64">
+  <div class="p-4">
+    <div class="flex flex-col space-y-1">
+      <a *ngFor="let item of menuItems"
+         [routerLink]="item.link"
+         [routerLinkActive]="'bg-blue-50 text-blue-600'"
+         class="flex items-center justify-between px-4 py-2 text-gray-600 rounded-lg hover:bg-gray-50 transition-colors duration-200"
+         [class.bg-blue-50]="item.isActive"
+         [class.text-blue-600]="item.isActive">
+        <div class="flex items-center space-x-3">
+          <mat-icon class="text-gray-400" [class.text-blue-500]="item.isActive">{{item.icon}}</mat-icon>
+          <span class="font-medium">{{item.label}}</span>
+        </div>
+        <span *ngIf="item.badge" 
+              class="px-2 py-1 text-xs font-semibold rounded-full"
+              [class.bg-blue-100]="item.isActive"
+              [class.text-blue-600]="item.isActive"
+              [class.bg-gray-100]="!item.isActive"
+              [class.text-gray-600]="!item.isActive">
+          {{item.badge}}
+        </span>
+      </a>
+    </div>
+  </div>
+</nav> 
