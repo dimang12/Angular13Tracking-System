@@ -9,6 +9,7 @@ import { ProjectDetailComponent } from './project/project-detail/project-detail.
 import { TaskComponent } from './task/task.component';
 import { DailyReportComponent } from './daily-report/daily-report.component';
 import { AuthGuard } from './auth/auth.guard';
+import {DetailTaskComponent} from "./task/detail-task/detail-task.component";
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'project', component: ProjectComponent, canActivate: [AuthGuard] },
   { path: 'project-detail/:id', component: ProjectDetailComponent, canActivate: [AuthGuard] },
   { path: 'task', component: TaskComponent, canActivate: [AuthGuard] },
+  { path: 'task/detail/:taskId', component: DetailTaskComponent, canActivate: [AuthGuard]},
   { path: 'task/:projectId', component: TaskComponent, canActivate: [AuthGuard] },
   { path: 'daily-report', component: DailyReportComponent, canActivate: [AuthGuard] },
   { path: 'home', component: DashboardComponent, canActivate: [AuthGuard] },

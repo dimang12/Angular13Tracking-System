@@ -1,0 +1,87 @@
+<div class="flex-col gap-y-2 m-0 bg-purple-50 p-4">
+              <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
+              <div class="p-6 bg-white rounded-md mt-4 border">
+                <h2 class="text-xl font-bold mb-4">Task Details</h2>
+                <form *ngIf="taskForm" [formGroup]="taskForm" class="flex flex-col gap-y-4">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Task Name</mat-label>
+                    <input matInput formControlName="name">
+                  </mat-form-field>
+                  <div class="grid grid-cols-12 gap-4">
+                    <div class="grid col-span-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Project</mat-label>
+                        <mat-select formControlName="project">
+                          <mat-option *ngFor="let project of projects" [value]="project.id">{{ project.name }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="grid col-span-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Status</mat-label>
+                        <mat-select formControlName="status">
+                          <mat-option *ngFor="let status of statusParams" [value]="status.value">{{ status.label }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                    <div class="grid col-span-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Priority</mat-label>
+                        <mat-select formControlName="priority">
+                          <mat-option *ngFor="let priority of priorityParams" [value]="priority.value">{{ priority.label }}</mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="grid grid-cols-12 gap-4">
+                    <div class="grid col-span-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Start Date</mat-label>
+                        <input matInput [matDatepicker]="startPicker" formControlName="startDate" (dateChange)="calculateDays()">
+                        <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #startPicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                    <div class="grid col-span-6">
+                      <mat-form-field appearance="outline">
+                        <mat-label>End Date</mat-label>
+                        <input matInput [matDatepicker]="endPicker" formControlName="endDate" (dateChange)="calculateDays()">
+                        <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+                        <mat-datepicker #endPicker></mat-datepicker>
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-12 gap-4">
+                    <div class="grid col-span-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Number of Days</mat-label>
+                        <input matInput formControlName="numberOfDays">
+                      </mat-form-field>
+                    </div>
+                    <div class="grid col-span-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Level of Effort (LOE)</mat-label>
+                        <input matInput formControlName="loe">
+                      </mat-form-field>
+                    </div>
+                    <div class="grid col-span-4">
+                      <mat-form-field appearance="outline">
+                        <mat-label>Percentage Completion</mat-label>
+                        <input matInput formControlName="percentageCompletion">
+                      </mat-form-field>
+                    </div>
+                  </div>
+
+                  <mat-form-field appearance="outline">
+                    <mat-label>Details</mat-label>
+                    <textarea matInput formControlName="detail" rows="5"></textarea>
+                  </mat-form-field>
+
+                  <div class="flex pt-2 pb-2 items-end justify-end space-x-4">
+                    <app-button-ui size="medium" color="light" (click)="onCancel()">Go back to task</app-button-ui>
+                    <app-button-ui size="medium" (click)="onUpdate()">Update Task</app-button-ui>
+                  </div>
+                </form>
+              </div>
+            </div>

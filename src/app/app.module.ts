@@ -35,6 +35,8 @@ import { MatSlideToggleModule } from "@angular/material/slide-toggle";
 
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from "@angular/common/http";
+import { UiModule } from './components/uis/ui.module';
+import { SharedModule } from './shared/shared.module';
 
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
@@ -56,7 +58,6 @@ import { BreadcrumbComponent } from './layout/breadcrumb/breadcrumb.component';
 import { ProjectDetailComponent } from './project/project-detail/project-detail.component';
 import { BlanketComponent } from './components/uis/blanket/blanket.component';
 import { NewProjectComponent } from './project/new-project/new-project.component';
-import { UiModule } from './components/uis/ui.module';
 import { EditProjectComponent } from './project/edit-project/edit-project.component';
 import { ConfirmDialogComponent } from './components/uis/confirm-dialog/confirm-dialog.component';
 import { NewTaskComponent } from './task/new-task/new-task.component';
@@ -67,6 +68,7 @@ import { GroupProjectComponent } from "./project/project-group/group-project.com
 import { AddGroupProjectDialogComponent } from "./project/add-group-project-dialog/add-group-project-dialog.component";
 import { EditGroupProjectDialogModule } from "./project/edit-group-project-dialog/edit-group-project-dialog.module";
 import { SubNavigationComponent } from './components/sub-navigation/sub-navigation.component';
+import { DetailTaskComponent } from "./task/detail-task/detail-task.component";
 
 @NgModule({
   declarations: [
@@ -93,7 +95,8 @@ import { SubNavigationComponent } from './components/sub-navigation/sub-navigati
     DailyReportComponent,
     GroupProjectComponent,
     AddGroupProjectDialogComponent,
-    SubNavigationComponent
+    SubNavigationComponent,
+    DetailTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -134,7 +137,8 @@ import { SubNavigationComponent } from './components/sub-navigation/sub-navigati
     MatCardModule,
     MatSlideToggleModule,
     MatProgressSpinnerModule,
-    UiModule
+    UiModule,
+    SharedModule
   ],
   providers: [],
   bootstrap: [AppComponent]
