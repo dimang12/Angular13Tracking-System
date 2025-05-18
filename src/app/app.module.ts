@@ -68,6 +68,7 @@ import { GroupProjectComponent } from "./project/project-group/group-project.com
 import { AddGroupProjectDialogComponent } from "./project/add-group-project-dialog/add-group-project-dialog.component";
 import { EditGroupProjectDialogModule } from "./project/edit-group-project-dialog/edit-group-project-dialog.module";
 import { SubNavigationComponent } from './components/sub-navigation/sub-navigation.component';
+import { DetailTaskComponent } from "./task/detail-task/detail-task.component";
 
 @NgModule({
   declarations: [
@@ -94,7 +95,8 @@ import { SubNavigationComponent } from './components/sub-navigation/sub-navigati
     DailyReportComponent,
     GroupProjectComponent,
     AddGroupProjectDialogComponent,
-    SubNavigationComponent
+    SubNavigationComponent,
+    DetailTaskComponent
   ],
   imports: [
     BrowserModule,

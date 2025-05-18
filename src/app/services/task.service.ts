@@ -54,6 +54,21 @@ export class TaskService {
     );
   }
 
+  /**
+   * Get task by id
+   * @param id string task id
+   * @returns Observable of TaskInterface
+   */
+  public getTaskById(id: string): Observable<TaskInterface> {
+    return this.firestore.collection(this.taskCollection).doc<TaskInterface>(id).valueChanges().pipe(
+      map((task: any) => ({
+        ...task,
+        startDate: task?.startDate?.toDate(),
+        endDate: task?.endDate?.toDate(),
+      }))
+    );
+  }
+
 
   /**
    * add task service
