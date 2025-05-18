@@ -105,13 +105,13 @@
                     <div class="pe-2">
                       <mat-icon class="w-8 h-8 text-gray-400 " aria-hidden="true">person</mat-icon>
                     </div>
-                    <div class="text-gray-600 dark:text-gray-400">
+                    <div class="text-gray-600">
                       <div class="text-base font-normal">
                         <span class="font-medium text-gray-900 ">{{ report.userName }}</span>
                         {{ report.action }}
                         <span class="font-medium text-gray-900 ">{{ report.target }}</span>
                       </div>
-                      <div class="text-sm font-normal text-gray-600 hover:text-gray-900" [innerHTML]="report.content"></div>
+                      <div class="html-content-reset text-gray-600" [innerHTML]="report.content"></div>
                       <span class="inline-flex items-center text-xs font-normal text-gray-500 ">
                     {{ report.visibility }}
                   </span>

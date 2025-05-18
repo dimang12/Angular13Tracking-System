@@ -1,7 +1,7 @@
 @import "assets/scss/variable";
 @import "assets/scss/block-container";
 @import "node_modules/bootstrap-icons/font/bootstrap-icons.scss";
-//@tailwind base; // commented out to avoid conflicts with default html styles
+@tailwind base; // commented out to avoid conflicts with default html styles
 @tailwind components;
 @tailwind utilities;
 
@@ -83,4 +83,41 @@ a       { text-decoration: none; }
 .ql-toolbar.ql-snow {
   border-top-left-radius: 0.5rem !important;
   border-top-right-radius: 0.5rem !important;
+}
+
+// Reset styles for HTML content
+.html-content-reset {
+  all: revert;
+
+  // Reset specific HTML elements to their browser defaults
+  h1, h2, h3, h4, h5, h6, p, ul, ol, li, a, blockquote, pre, code {
+    all: revert;
+  }
+
+  // Ensure proper spacing and margins
+  p, ul, ol, blockquote {
+    margin-bottom: 1em;
+  }
+
+  // Ensure lists display properly
+  ul {
+    list-style-type: disc;
+    padding-left: 2em;
+  }
+
+  ol {
+    list-style-type: decimal;
+    padding-left: 2em;
+  }
+
+  // Ensure links are properly styled
+  a {
+    color: blue;
+    text-decoration: underline;
+  }
+
+  // Ensure code blocks are properly styled
+  pre, code {
+    font-family: monospace;
+  }
 }
