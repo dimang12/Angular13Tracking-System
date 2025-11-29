@@ -7,9 +7,23 @@
 # Only exists if Bazel was run
 /bazel-out
 
-# dependencies
-/node_modules
+# Node
+node_modules/
+**/node_modules/
 
+# Build output
+dist/
+public/
+
+# Firebase service account / secrets
+*.service-account.json
+.env
+.env.*.local
+
+# Editor / OS
+.DS_Store
+.vscode/
+.idea/
 # profiling files
 chrome-profiler-events*.json
 

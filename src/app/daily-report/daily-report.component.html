@@ -1,7 +1,7 @@
 <div class="flex-col gap-y-2 m-0 bg-purple-50 p-4">
   <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   <app-blanket>
-    <mat-tab-group #tabGroup>
+    <mat-tab-group #tabGroup [selectedIndex]="selectedTabIndex">
       <!-- Notation Form Tab -->
       <mat-tab label="Report Form">
         <div class="flex">
@@ -29,11 +29,11 @@
                 <mat-form-field class="flex-1 m" appearance="outline">
                   <mat-label>References</mat-label>
                   <mat-chip-list class="py-4" #referenceList>
-                    <mat-chip *ngFor="let ref of references" (removed)="removeReference(ref)">
+                    <mat-chip *ngFor="let ref of references || []" (removed)="removeReference(ref)">
                       {{ ref.name }}
                       <mat-icon matChipRemove>cancel</mat-icon>
                     </mat-chip>
-                    <mat-chip disabled *ngIf="references.length === 0">No references added</mat-chip>
+                    <mat-chip disabled *ngIf="(references?.length ?? 0) === 0">No references added</mat-chip>
                   </mat-chip-list>
                 </mat-form-field>
                 <button color="primary" mat-icon-button (click)="openReferencePopup()">
@@ -117,14 +117,14 @@
                   </span>
                       <!-- Display References -->
                       <div class="flex items-top gap-x-2 mt-4">
-                        <mat-chip-list class="py-4" *ngIf="report.references.length > 0">
-                          <mat-chip *ngFor="let ref of report.references">
+                        <mat-chip-list class="py-4" *ngIf="(report.references?.length ?? 0) > 0">
+                          <mat-chip *ngFor="let ref of report.references || []">
                             <a [routerLink]="ref.type === 'task' ? ['/task', ref.id] : ['/project', ref.id]">
                               {{ ref.name }}
                             </a>
                           </mat-chip>
                         </mat-chip-list>
-                        <mat-chip disabled *ngIf="report.references.length === 0">No references added</mat-chip>
+                        <mat-chip disabled *ngIf="(report.references?.length ?? 0) === 0">No references added</mat-chip>
                       </div>
                       <!-- End of Display References -->
                     </div>

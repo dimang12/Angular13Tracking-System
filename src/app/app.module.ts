@@ -69,6 +69,7 @@ import { AddGroupProjectDialogComponent } from "./project/add-group-project-dial
 import { EditGroupProjectDialogModule } from "./project/edit-group-project-dialog/edit-group-project-dialog.module";
 import { SubNavigationComponent } from './components/sub-navigation/sub-navigation.component';
 import { DetailTaskComponent } from "./task/detail-task/detail-task.component";
+import { MediaComponent } from './media/media.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { DetailTaskComponent } from "./task/detail-task/detail-task.component";
     GroupProjectComponent,
     AddGroupProjectDialogComponent,
     SubNavigationComponent,
-    DetailTaskComponent
+    DetailTaskComponent,
+    MediaComponent
   ],
   imports: [
     BrowserModule,

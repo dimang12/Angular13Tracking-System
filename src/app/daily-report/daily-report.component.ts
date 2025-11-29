@@ -40,6 +40,8 @@ export class DailyReportComponent implements OnInit {
   isEditMode: boolean = false;
   currentReportId: string | null = null;
   content: string = '';
+  // Control which tab is selected (0 = Report Form, 1 = History). Default to History.
+  selectedTabIndex: number = 1;
 
   quillModules = {
     toolbar: [
@@ -87,7 +89,7 @@ export class DailyReportComponent implements OnInit {
     this.filterReports();
   }
 
-  onToggleChange(event: any): void {
+  onToggleChange(): void {
     this.filterReports();
   }
 
@@ -178,18 +180,28 @@ export class DailyReportComponent implements OnInit {
   }
 
   editReport(report: DailyReportInterface): void {
-    this.content = report.content;
+    // Clear any previous content to ensure change detection notices the update
+    this.content = '';
     this.isEditMode = true;
     this.currentReportId = report.id;
+    // patch date immediately, content will be set after tab switch to ensure editor exists
     this.reportForm.patchValue({
       date: report.date,
-      content: report.content
+      content: ''
     });
-    this.references = report.references;
-    // Switch to the Report Form tab
-    if (this.tabGroup) {
-      this.tabGroup.selectedIndex = 0;
-    }
+    this.references = report.references || [];
+    // set selectedTabIndex so the bound mat-tab-group switches to the Report Form
+    this.selectedTabIndex = 0;
+
+    // Use a microtask to set content after the tab switch / editor initialization
+    setTimeout(() => {
+      this.content = report.content || '';
+      this.reportForm.patchValue({ content: report.content || '' });
+      // If the rich text editor component instance is available, update it directly as well
+      if (this.richTextEditor && (this.richTextEditor as any).quill) {
+        (this.richTextEditor as any).quill.root.innerHTML = report.content || '';
+      }
+    }, 0);
   }
 
   isToday(date: Date): boolean {
@@ -206,6 +218,7 @@ export class DailyReportComponent implements OnInit {
       content: ''
     });
     this.references = [];
+    this.content = '';
     this.richTextEditor.resetContent();
   }
 }
