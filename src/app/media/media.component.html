@@ -1,0 +1,326 @@
+<div class="flex-col gap-y-2 m-0 bg-purple-50 p-4">
+  <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
+  <app-blanket>
+    <section class="bl-header pb-2 mb-2 flex space-x-6 justify-content-between p-6">
+      <h2 class="flex-grow-1 m-0">
+        AI Media Assistant
+      </h2>
+    </section>
+
+    <div class="flex-grow-1 p-6">
+      <!-- Feature Selection -->
+      <div class="mb-6">
+        <label class="block text-sm font-medium text-gray-700 mb-2">Select AI Feature</label>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div class="relative">
+            <input type="radio" id="text-generation" name="feature" value="text-generation" 
+                   [(ngModel)]="selectedFeature" class="sr-only">
+            <label for="text-generation" 
+                   class="block p-4 border-2 rounded-lg cursor-pointer transition-all hover:border-indigo-300"
+                   [class.border-indigo-500]="selectedFeature === 'text-generation'"
+                   [class.bg-indigo-50]="selectedFeature === 'text-generation'">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                  <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-900">Text Generation</h3>
+                  <p class="text-sm text-gray-500">Generate creative text content</p>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="relative">
+            <input type="radio" id="content-ideas" name="feature" value="content-ideas" 
+                   [(ngModel)]="selectedFeature" class="sr-only">
+            <label for="content-ideas" 
+                   class="block p-4 border-2 rounded-lg cursor-pointer transition-all hover:border-indigo-300"
+                   [class.border-indigo-500]="selectedFeature === 'content-ideas'"
+                   [class.bg-indigo-50]="selectedFeature === 'content-ideas'">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                  <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-900">Content Ideas</h3>
+                  <p class="text-sm text-gray-500">Get creative content suggestions</p>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="relative">
+            <input type="radio" id="text-analysis" name="feature" value="text-analysis" 
+                   [(ngModel)]="selectedFeature" class="sr-only">
+            <label for="text-analysis" 
+                   class="block p-4 border-2 rounded-lg cursor-pointer transition-all hover:border-indigo-300"
+                   [class.border-indigo-500]="selectedFeature === 'text-analysis'"
+                   [class.bg-indigo-50]="selectedFeature === 'text-analysis'">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                  <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-900">Text Analysis</h3>
+                  <p class="text-sm text-gray-500">Analyze and get insights</p>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="relative">
+            <input type="radio" id="video-generation" name="feature" value="video-generation" 
+                   [(ngModel)]="selectedFeature" class="sr-only">
+            <label for="video-generation" 
+                   class="block p-4 border-2 rounded-lg cursor-pointer transition-all hover:border-indigo-300"
+                   [class.border-indigo-500]="selectedFeature === 'video-generation'"
+                   [class.bg-indigo-50]="selectedFeature === 'video-generation'">
+              <div class="flex items-center">
+                <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center mr-3">
+                  <svg class="w-4 h-4 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                  </svg>
+                </div>
+                <div>
+                  <h3 class="font-medium text-gray-900">Video Generation</h3>
+                  <p class="text-sm text-gray-500">Create videos with Veo 3.0</p>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Options (only show for video generation) -->
+      <div *ngIf="selectedFeature === 'video-generation'" class="mb-6 p-4 bg-gray-50 rounded-lg">
+        <h3 class="text-sm font-medium text-gray-700 mb-3">Video Settings</h3>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Aspect Ratio</label>
+            <select [(ngModel)]="videoOptions.aspectRatio" class="w-full text-sm border-gray-300 rounded-md">
+              <option value="16:9">16:9 (Landscape)</option>
+              <option value="9:16">9:16 (Portrait)</option>
+              <option value="1:1">1:1 (Square)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Duration (seconds)</label>
+            <select [(ngModel)]="videoOptions.durationSeconds" class="w-full text-sm border-gray-300 rounded-md">
+              <option value="4">4 seconds</option>
+              <option value="8">8 seconds</option>
+              <option value="12">12 seconds</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Sample Count</label>
+            <select [(ngModel)]="videoOptions.sampleCount" class="w-full text-sm border-gray-300 rounded-md">
+              <option value="1">1 video</option>
+              <option value="2">2 videos</option>
+              <option value="4">4 videos</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-medium text-gray-600 mb-1">Audio</label>
+            <div class="flex items-center">
+              <input type="checkbox" [(ngModel)]="videoOptions.generateAudio" class="mr-2">
+              <span class="text-sm">Generate audio</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Input Section -->
+      <div class="mb-6">
+        <label for="prompt" class="block text-sm font-medium text-gray-700 mb-2">
+          {{ selectedFeature === 'text-generation' ? 'Enter your prompt' : 
+             selectedFeature === 'content-ideas' ? 'Enter a topic for content ideas' : 
+             selectedFeature === 'text-analysis' ? 'Enter text to analyze' :
+             'Describe the video you want to generate' }}
+        </label>
+        <div class="relative">
+          <!-- Text prompt input -->
+          <textarea
+            *ngIf="selectedFeature !== 'video-generation'"
+            id="textPrompt"
+            [(ngModel)]="textPrompt"
+            rows="4"
+            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm resize-none"
+            placeholder="{{ selectedFeature === 'text-generation' ? 'Describe what you want to generate...' : 
+                       selectedFeature === 'content-ideas' ? 'e.g., Digital Marketing, Product Launch, etc.' : 
+                       'Paste your text here for analysis...' }}"
+            [disabled]="textLoading">
+          </textarea>
+          
+          <!-- Video prompt input -->
+          <textarea
+            *ngIf="selectedFeature === 'video-generation'"
+            id="videoPrompt"
+            [(ngModel)]="videoPrompt"
+            rows="4"
+            class="block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm resize-none"
+            placeholder="e.g., A cat playing with a ball in a sunny garden..."
+            [disabled]="videoLoading">
+          </textarea>
+          
+          <div class="absolute bottom-2 right-2 text-xs text-gray-400">
+            {{ selectedFeature === 'video-generation' ? videoPrompt.length : textPrompt.length }} characters
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex space-x-4 mb-6">
+        <button
+          (click)="generateContent()"
+          [disabled]="textLoading || videoLoading || (selectedFeature === 'video-generation' ? !videoPrompt.trim() : !textPrompt.trim())"
+          class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">
+          <svg *ngIf="textLoading || videoLoading" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          {{ textLoading ? 'Generating Text...' : videoLoading ? 'Generating Video...' : 'Generate Content' }}
+        </button>
+        
+        <button
+          (click)="clearContent()"
+          [disabled]="textLoading || videoLoading"
+          class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed">
+          <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+          </svg>
+          Clear
+        </button>
+      </div>
+
+      <!-- Video Progress -->
+      <div *ngIf="videoLoading" class="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-md">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <svg class="animate-spin h-5 w-5 text-blue-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-blue-800">Video generation in progress...</p>
+            <p class="text-xs text-blue-600 mt-1">This may take several minutes...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Messages -->
+      <div *ngIf="textError" class="mb-6 p-4 bg-red-50 border border-red-200 rounded-md">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-red-800">{{ textError }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="videoError" class="mb-6 p-4 bg-red-50 border border-red-200 rounded-md">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <p class="text-sm text-red-800">{{ videoError }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Text Response Section -->
+      <div *ngIf="textResult" class="bg-white border border-gray-200 rounded-lg shadow-sm mb-6">
+        <div class="px-4 py-3 border-b border-gray-200 flex justify-between items-center">
+          <h3 class="text-lg font-medium text-gray-900">AI Response</h3>
+          <button
+            (click)="copyToClipboard(textResult)"
+            class="inline-flex items-center px-3 py-1 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            <svg class="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+            </svg>
+            Copy
+          </button>
+        </div>
+        <div class="px-4 py-4">
+          <div class="prose max-w-none">
+            <pre class="whitespace-pre-wrap text-sm text-gray-800 font-sans">{{ textResult }}</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Video Response Section -->
+      <div *ngIf="videoResult" class="bg-white border border-gray-200 rounded-lg shadow-sm mb-6">
+        <div class="px-4 py-3 border-b border-gray-200">
+          <h3 class="text-lg font-medium text-gray-900">Generated Videos</h3>
+        </div>
+        <div class="p-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div *ngFor="let video of videoResult.predictions; let i = index" class="border border-gray-200 rounded-lg p-4">
+              <div class="aspect-video bg-gray-100 rounded-lg mb-3 flex items-center justify-center">
+                <video *ngIf="video.videoUri" [src]="video.videoUri" controls class="w-full h-full rounded-lg">
+                  Your browser does not support the video tag.
+                </video>
+                <div *ngIf="!video.videoUri" class="text-gray-500 text-sm">
+                  Video loading...
+                </div>
+              </div>
+              <div class="flex space-x-2">
+                <a *ngIf="video.videoUri" [href]="video.videoUri" target="_blank"
+                   class="flex-1 inline-flex items-center justify-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <svg class="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                  </svg>
+                  View Video
+                </a>
+                <a *ngIf="video.thumbnailUri" [href]="video.thumbnailUri" target="_blank"
+                   class="inline-flex items-center justify-center px-3 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                  <svg class="-ml-1 mr-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                  </svg>
+                  Thumbnail
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- API Key Notice -->
+      <div class="mt-8 p-4 bg-yellow-50 border border-yellow-200 rounded-md">
+        <div class="flex">
+          <div class="flex-shrink-0">
+            <svg class="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+            </svg>
+          </div>
+          <div class="ml-3">
+            <h3 class="text-sm font-medium text-yellow-800">Setup Required</h3>
+            <div class="mt-2 text-sm text-yellow-700">
+              <p>To use this feature, you need to:</p>
+              <ol class="list-decimal list-inside mt-1 space-y-1">
+                <li>For <strong>Text Generation</strong>: Get a Google AI API key from <a href="https://makersuite.google.com/app/apikey" target="_blank" class="underline">Google AI Studio</a></li>
+                <li>For <strong>Video Generation</strong>: Get a Google Cloud API key and enable Vertex AI API</li>
+                <li>Replace the API keys in the respective service files</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </app-blanket>
+</div>
