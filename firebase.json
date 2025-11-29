@@ -1,10 +1,12 @@
 {
   "firestore": {
-    "rules": "firebase.rules",
+    "database": "(default)",
+    "location": "nam5",
+    "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
   "hosting": {
-    "public": "dist/tracking-system13",
+    "public": "public",
     "ignore": [
       "firebase.json",
       "**/.*",
@@ -18,4 +20,3 @@
     ]
   }
 }
-
