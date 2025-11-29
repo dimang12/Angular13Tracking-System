@@ -89,7 +89,8 @@ export class DailyReportComponent implements OnInit {
     this.filterReports();
   }
 
-  onToggleChange(): void {
+  onToggleChange(event?: any): void {
+    // event is unused but accepted to match template binding (change) calling with $event
     this.filterReports();
   }
 

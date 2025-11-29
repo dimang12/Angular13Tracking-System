@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
@@ -69,7 +69,7 @@ import { AddGroupProjectDialogComponent } from "./project/add-group-project-dial
 import { EditGroupProjectDialogModule } from "./project/edit-group-project-dialog/edit-group-project-dialog.module";
 import { SubNavigationComponent } from './components/sub-navigation/sub-navigation.component';
 import { DetailTaskComponent } from "./task/detail-task/detail-task.component";
-import { MediaComponent } from './media/media.component';
+import { GlobalErrorHandler } from './services/global-error-handler.service';
 
 @NgModule({
   declarations: [
@@ -97,8 +97,7 @@ import { MediaComponent } from './media/media.component';
     GroupProjectComponent,
     AddGroupProjectDialogComponent,
     SubNavigationComponent,
-    DetailTaskComponent,
-    MediaComponent
+    DetailTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -142,7 +141,9 @@ import { MediaComponent } from './media/media.component';
     UiModule,
     SharedModule
   ],
-  providers: [],
+  providers: [
+    { provide: ErrorHandler, useClass: GlobalErrorHandler }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

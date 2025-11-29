@@ -6,7 +6,7 @@ import { UiComponent } from '../ui.component';
   templateUrl: './button-ui.component.html',
   styleUrls: ['./button-ui.component.css']
 })
-export default class ButtonUiComponent extends UiComponent {
+export class ButtonUiComponent extends UiComponent {
   @Input() color: string = 'primary';
   @Input() disabled: boolean = false;
   @Input() size: string = 'small';
