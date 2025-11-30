@@ -12,7 +12,11 @@ export const environment = {
     messagingSenderId: "235757649576",
     appId: "1:235757649576:web:ea3426c24bb86295a98c9d",
     measurementId: "G-6S16EV9Y48"
-  }
+  },
+  // For local development only: if you need to call OpenAI directly from the client use a test key here
+  // but DO NOT commit production keys. Prefer using the Functions proxy configured via
+  // `firebase functions:config:set openai.key="YOUR_KEY"` and call the callable function.
+  openaiApiKey: ''
 };
 
 /*

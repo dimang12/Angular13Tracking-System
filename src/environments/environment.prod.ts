@@ -8,5 +8,8 @@ export const environment = {
     messagingSenderId: "235757649576",
     appId: "1:235757649576:web:ea3426c24bb86295a98c9d",
     measurementId: "G-6S16EV9Y48"
-  }
+  },
+  // OpenAI API key must NOT be committed to source. Leave empty in repo and set it on the server via
+  // `firebase functions:config:set openai.key="YOUR_KEY"` or use Secret Manager.
+  openaiApiKey: ''
 };

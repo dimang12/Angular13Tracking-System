@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "dev": "concurrently \"npm:start\" \"node backend/localserver/server.js\"",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -38,6 +39,7 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "concurrently": "^8.2.0",
     "@angular-devkit/build-angular": "~13.1.2",
     "@angular/cli": "~13.1.2",
     "@angular/compiler-cli": "~13.1.0",
