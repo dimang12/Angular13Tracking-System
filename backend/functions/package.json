@@ -1,0 +1,14 @@
+{
+  "name": "functions",
+  "description": "Firebase Functions for Angular13Tracking-System: OpenAI proxy",
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "firebase-admin": "^11.10.1",
+    "firebase-functions": "^4.4.0",
+    "cors": "^2.8.5",
+    "axios": "^1.4.0"
+  }
+}

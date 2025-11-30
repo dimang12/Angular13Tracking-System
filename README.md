@@ -25,3 +25,14 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+### OpenAI proxy function
+
+A Firebase Cloud Function is provided at `backend/functions/index.js` named `improveWithOpenAI` that proxies requests to the OpenAI Chat Completions API. It requires:
+
+- Firebase Functions config: `firebase functions:config:set openai.key="YOUR_OPENAI_KEY"`
+- Deployed function: `firebase deploy --only functions:improveWithOpenAI`
+
+Client usage: call the callable endpoint from the client (an example service is `src/app/services/openai-proxy.service.ts`). The function requires the user to be authenticated.
+
+Security: never store the OpenAI key in source control; use `functions.config()` or Secret Manager.

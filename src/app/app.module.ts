@@ -7,6 +7,7 @@ import { AngularFireModule } from "@angular/fire/compat";
 import { AngularFireAuthModule } from "@angular/fire/compat/auth";
 import { AngularFireDatabaseModule } from "@angular/fire/compat/database";
 import { AngularFirestoreModule} from "@angular/fire/compat/firestore";
+import { AngularFireFunctionsModule } from '@angular/fire/compat/functions';
 
 // Material
 import { MatMenuModule } from '@angular/material/menu';
@@ -112,6 +113,7 @@ import { GlobalErrorHandler } from './services/global-error-handler.service';
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFirestoreModule,
+    AngularFireFunctionsModule,
     EditGroupProjectDialogModule,
 
     MatIconModule,

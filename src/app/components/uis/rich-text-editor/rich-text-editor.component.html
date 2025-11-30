@@ -1,3 +1,9 @@
-<div class="bg-white rounded-lg">
+<div class="bg-white rounded-lg" (click)="contextMenuVisible = false">
   <div #editor class="h-64"></div>
+</div>
+
+<!-- Custom context menu shown on right-click inside the editor -->
+<div *ngIf="contextMenuVisible" class="custom-context-menu" [style.top.px]="menuY" [style.left.px]="menuX">
+  <button mat-button color="primary" (click)="onMenuImprove()">Improve with OpenAI</button>
+  <button mat-button (click)="closeContextMenu()">Cancel</button>
 </div>

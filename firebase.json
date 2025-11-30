@@ -5,6 +5,9 @@
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
   },
+  "functions": {
+    "source": "backend/functions"
+  },
   "hosting": {
     "public": "dist/tracking-system13",
     "ignore": [
